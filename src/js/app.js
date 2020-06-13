@@ -1,7 +1,7 @@
-const shit = document.getElementById('shit');
+( function( $ ) {
 
-const fuck = hell => {
-	console.log(hell);
-};
+	$( function() {
+		console.log( 'jquery working' );
+	} );
 
-fuck('this shit!!!!????');
+} )( jQuery );

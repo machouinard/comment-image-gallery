@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/js/app.js"],"names":["$","console","log","jQuery"],"mappings":";;AAAA,CAAE,UAAUA,CAAV,EAAc;AAEfA,EAAAA,CAAC,CAAE,YAAW;AACbC,IAAAA,OAAO,CAACC,GAAR,CAAa,gBAAb;AACA,GAFA,CAAD;AAIA,CAND,EAMKC,MANL","sourcesContent":["( function( $ ) {\n\n\t$( function() {\n\t\tconsole.log( 'jquery working' );\n\t} );\n\n} )( jQuery );\n"],"file":"main.js"}

@@ -25,15 +25,34 @@ module.exports = function( grunt ) {
 			},
 			dist: {
 				files: {
-					'dist/js/main.js': 'src/js/app.js'
+					'assets/js/main.js': 'src/js/app.js'
 				}
+			}
+		},
+
+		copy: {
+			main: {
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: ['src/js/featherlight/*.js'],
+						dest: 'assets/js/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['src/js/featherlight/*.css'],
+						dest: 'assets/css/'
+					}
+				]
 			}
 		},
 
 		uglify: {
 			build: {
-				src: 'dist/js/main.js',
-				dest: 'dist/js/main.min.js'
+				src: 'assets/js/main.js',
+				dest: 'assets/js/main.min.js'
 			}
 		},
 
@@ -49,7 +68,7 @@ module.exports = function( grunt ) {
 
 		clean: {
 			build: {
-				src: ['dist']
+				src: ['assets']
 			}
 		},
 
@@ -84,11 +103,12 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-babel' );
-	grunt.registerTask( 'default', ['clean', 'babel','readme', 'watch'] );
+	grunt.registerTask( 'default', ['clean', 'babel','copy', 'watch'] );
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
 	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
-	grunt.registerTask( 'prod', ['clean', 'babel', 'uglify'] );
+	grunt.registerTask( 'prod', ['clean', 'babel', 'uglify', 'copy'] );
 
 	grunt.util.linefeed = '\n';
 
