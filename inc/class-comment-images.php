@@ -31,8 +31,12 @@ class Images {
 			$attachments = get_comment_meta( $comment->comment_ID, 'wmu_attachments', true );
 			if ( $attachments ) {
 				if ( isset( $attachments['images'] ) ) {
+					$date = date( 'M j, Y', strtotime( $comment->comment_date ) );
+					$images[ $comment->comment_ID ]['comment'] = $comment->comment_content;
+					$images[ $comment->comment_ID ]['author'] = $comment->comment_author;
+					$images[ $comment->comment_ID ]['date'] = $date;
 					foreach( $attachments['images'] as $attach_id ) {
-						$images[ $comment->comment_ID ][] = wp_get_attachment_image( $attach_id );
+						$images[ $comment->comment_ID ]['src'][] = wp_get_attachment_image( $attach_id );
 					}
 				}
 			}

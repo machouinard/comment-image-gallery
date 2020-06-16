@@ -29,13 +29,15 @@ function cig_scripts() {
 	$ver = filemtime( CIG_PATH . 'assets/js/main.js' );
 	$css_ver = filemtime( CIG_PATH . 'assets/css/cig.css' );
 	wp_enqueue_script( 'cig-fljs', CIG_URL . 'assets/js/featherlight.min.js', [], '1.7.14', true );
+	wp_enqueue_script( 'cig-flgjs', CIG_URL . 'assets/js/featherlight.gallery.min.js', [], '1.7.14', true );
 	wp_enqueue_script( 'cig-js', CIG_URL . 'assets/js/main.js', ['jquery', 'cig-fljs'], $ver, true );
 	wp_enqueue_style( 'cig-flcss', CIG_URL . 'assets/css/featherlight.min.css', [], '1.7.14' );
+	wp_enqueue_style( 'cig-flgcss', CIG_URL . 'assets/css/featherlight.gallery.min.css', [], '1.7.14' );
 	wp_enqueue_style( 'cig-style', CIG_URL . 'assets/css/cig.css', [], $css_ver );
 }
 
-add_action( 'wpdiscuz_comment_form_before', 'cig_comment_form_before', 11 );
-function cig_comment_form_before() {
+add_action( 'wpdiscuz_comment_form_before', 'cig_comment_form_gallery', 11 );
+function cig_comment_form_gallery() {
 
 	$choco = \Chocolate\chocoloate_images();
 
@@ -48,14 +50,27 @@ function cig_comment_form_before() {
 	$images = $choco->first_four();
 
 	echo '<div id="cig-gallery">';
-	foreach( $images as $image ) {
-		foreach ( $image as $img ) {
+	foreach( $images as $comment_id => $image ) {
+		?>
+		<div class="cig-image">
+		<?php
+		foreach ( $image['src'] as $img ) {
+			echo '<a href="#cig-' . intval( $comment_id ) . '" data-featherlight>' . $img . '</a>';
 			?>
-				<div class="cig-image">
-					<?php echo $img; ?>
+			<div class="cig-modal" id="cig-<?php echo intval( $comment_id ); ?>">
+				<div class="cig-modal-int">
+					<div class="cig-modal-image"><?php echo $img; ?></div>
+					<div class="cig-modal-comment">
+						<p>By <?php echo $image['author']; ?> on <?php echo $image['date']; ?></p>
+						<?php echo $image['comment']; ?>
+					</div>
 				</div>
+			</div>
 			<?php
 		}
+		?>
+		</div>
+		<?php
 	}
 	echo '</div>';
 }

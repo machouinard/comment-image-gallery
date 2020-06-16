@@ -7,3 +7,23 @@
 		margin: 5px;
 	}
 }
+
+.cig-modal {
+	display: none;
+	width: 50vw;
+}
+
+.cig-modal-int {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	//justify-content: space-between;
+}
+
+.cig-modal-image {
+	//flex-grow: 1;
+	width: 220px;
+}
+.cig-modal-comment {
+	//flex-grow: 2;
+	//text-align: right;
+}

@@ -7,4 +7,18 @@
   margin: 5px;
 }
 
+.cig-modal {
+  display: none;
+  width: 50vw;
+}
+
+.cig-modal-int {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.cig-modal-image {
+  width: 220px;
+}
+
 /*# sourceMappingURL=cig.css.map */
