@@ -30,6 +30,17 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		sass: {
+			dist: {
+				options: {
+					style: 'expanded'
+				},
+				files: {
+					'assets/css/cig.css': 'src/scss/main.scss'
+				}
+			}
+		},
+
 		copy: {
 			main: {
 				files: [
@@ -60,6 +71,13 @@ module.exports = function( grunt ) {
 			scripts: {
 				files: ['src/**/*.js'],
 				tasks: ['babel'],
+				options: {
+					spawn: false
+				}
+			},
+			css: {
+				files: ['src/scss/main.scss'],
+				tasks: ['sass'],
 				options: {
 					spawn: false
 				}
@@ -104,11 +122,12 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+	grunt.loadNpmTasks( 'grunt-contrib-sass' );
 	grunt.loadNpmTasks( 'grunt-babel' );
-	grunt.registerTask( 'default', ['clean', 'babel','copy', 'watch'] );
+	grunt.registerTask( 'default', ['clean', 'sass', 'babel','copy', 'watch'] );
 	grunt.registerTask( 'i18n', ['addtextdomain', 'makepot'] );
 	grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
-	grunt.registerTask( 'prod', ['clean', 'babel', 'uglify', 'copy'] );
+	grunt.registerTask( 'prod', ['clean', 'sass', 'babel', 'uglify', 'copy'] );
 
 	grunt.util.linefeed = '\n';
 

@@ -1,0 +1,10 @@
+#cig-gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+#cig-gallery .cig-image {
+  width: 80px;
+  margin: 5px;
+}
+
+/*# sourceMappingURL=cig.css.map */

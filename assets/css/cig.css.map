@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,YAAa;EACZ,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;;AAEf,uBAAW;EACV,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,GAAG",
+"sources": ["../../src/scss/main.scss"],
+"names": [],
+"file": "cig.css"
+}

@@ -27,20 +27,34 @@ require_once CIG_PATH . 'inc/class-comment-images.php';
 add_action( 'wp_enqueue_scripts', 'cig_scripts' );
 function cig_scripts() {
 	$ver = filemtime( CIG_PATH . 'assets/js/main.js' );
+	$css_ver = filemtime( CIG_PATH . 'assets/css/cig.css' );
 	wp_enqueue_script( 'cig-fljs', CIG_URL . 'assets/js/featherlight.min.js', [], '1.7.14', true );
 	wp_enqueue_script( 'cig-js', CIG_URL . 'assets/js/main.js', ['jquery', 'cig-fljs'], $ver, true );
 	wp_enqueue_style( 'cig-flcss', CIG_URL . 'assets/css/featherlight.min.css', [], '1.7.14' );
+	wp_enqueue_style( 'cig-style', CIG_URL . 'assets/css/cig.css', [], $css_ver );
 }
 
 add_action( 'wpdiscuz_comment_form_before', 'cig_comment_form_before', 11 );
 function cig_comment_form_before() {
 
-	$images = \Chocolate\chocoloate_images()->get_images();
+	$choco = \Chocolate\chocoloate_images();
 
-	echo '<div>';
+	$images = $choco->get_images();
+
+	if ( ! $images ) {
+		return;
+	}
+
+	$images = $choco->first_four();
+
+	echo '<div id="cig-gallery">';
 	foreach( $images as $image ) {
 		foreach ( $image as $img ) {
-			echo $img;
+			?>
+				<div class="cig-image">
+					<?php echo $img; ?>
+				</div>
+			<?php
 		}
 	}
 	echo '</div>';

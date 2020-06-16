@@ -4,6 +4,7 @@ namespace Chocolate;
 class Images {
 
 	private $instance = false;
+	private $images = [];
 
 	public function __construct() {
 		// Empty
@@ -20,7 +21,7 @@ class Images {
 		global $post;
 
 		if ( ! $post || ! is_singular( 'post' ) || 'post' !== $post->post_type ) {
-			return false;
+			return [];
 		}
 
 		$comments = get_comments( [ 'post_id' => $post->ID ] );
@@ -37,7 +38,14 @@ class Images {
 			}
 		}
 
-		return $images;
+		$this->images = $images;
+
+		return empty( $this->images ) ? false : true;
+	}
+
+	public function first_four() {
+
+		return array_slice( $this->images, 0, 4, true );
 	}
 
 }
