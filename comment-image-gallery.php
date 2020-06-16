@@ -51,13 +51,18 @@ function cig_comment_form_gallery() {
 
 	global $_wp_additional_image_sizes;
 
+	?>
+	<p><a href="#" data-featherlight="#cig-gallery">Gallery</a> </p>
+	<?php
+
+	echo '<div id="cig-gallery-wrapper">';
 	echo '<div id="cig-gallery">';
 	foreach( $images as $comment_id => $image ) {
 		?>
 		<div class="cig-image">
 		<?php
 		foreach ( $image['src'] as $img ) {
-			echo '<a href="#cig-' . intval( $comment_id ) . '" data-featherlight>' . $img['square'][0] . '</a>';
+			echo '<a class="fl" href="#cig-' . intval( $comment_id ) . '">' . $img['square'][0] . '</a>';
 			?>
 			<div class="cig-modal" id="cig-<?php echo intval( $comment_id ); ?>">
 				<div class="cig-modal-int" data-featherlight-gallery>
@@ -74,5 +79,5 @@ function cig_comment_form_gallery() {
 		</div>
 		<?php
 	}
-	echo '</div>';
+	echo '</div></div>';
 }
