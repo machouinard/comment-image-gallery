@@ -1,24 +1,35 @@
 #cig-gallery {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 2rem;
 }
 #cig-gallery .cig-image {
-  width: 80px;
-  margin: 5px;
+  width: 150px;
+  margin-right: 5px;
 }
 
 .cig-modal {
   display: none;
-  width: 50vw;
+  width: 60vw;
 }
 
 .cig-modal-int {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 5fr 3fr;
 }
 
-.cig-modal-image {
-  width: 220px;
+.cig-modal-comment {
+  padding: 0 1rem;
+}
+.cig-modal-comment p {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 1025px) {
+  .cig-modal {
+    width: 80vw;
+  }
 }
 
 /*# sourceMappingURL=cig.css.map */

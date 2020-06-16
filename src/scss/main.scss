@@ -1,29 +1,45 @@
 #cig-gallery {
 	display: flex;
 	flex-wrap: wrap;
+	margin-top: 2rem;
+	//justify-content: space-around;
 
 	.cig-image {
-		width: 80px;
-		margin: 5px;
+		width: 150px;
+		margin-right: 5px;
 	}
+	//.cig-image:last-of-type {
+	//	margin-right: 0;
+	//}
 }
 
 .cig-modal {
 	display: none;
-	width: 50vw;
+	width: 60vw;
 }
 
 .cig-modal-int {
 	display: grid;
-	grid-template-columns: 1fr 2fr;
+	grid-template-columns: 5fr 3fr;
 	//justify-content: space-between;
 }
 
 .cig-modal-image {
 	//flex-grow: 1;
-	width: 220px;
+	//width: 500px;
 }
 .cig-modal-comment {
-	//flex-grow: 2;
-	//text-align: right;
+
+	padding: 0 1rem;
+
+	p {
+		font-weight: bold;
+		text-decoration: underline;
+	}
+}
+
+@media screen and ( max-width: 1025px ) {
+	.cig-modal {
+		width: 80vw;
+	}
 }

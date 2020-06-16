@@ -47,7 +47,9 @@ function cig_comment_form_gallery() {
 		return;
 	}
 
-	$images = $choco->first_four();
+	$first_four = $choco->first_four();
+
+	global $_wp_additional_image_sizes;
 
 	echo '<div id="cig-gallery">';
 	foreach( $images as $comment_id => $image ) {
@@ -55,11 +57,11 @@ function cig_comment_form_gallery() {
 		<div class="cig-image">
 		<?php
 		foreach ( $image['src'] as $img ) {
-			echo '<a href="#cig-' . intval( $comment_id ) . '" data-featherlight>' . $img . '</a>';
+			echo '<a href="#cig-' . intval( $comment_id ) . '" data-featherlight>' . $img['square'][0] . '</a>';
 			?>
 			<div class="cig-modal" id="cig-<?php echo intval( $comment_id ); ?>">
-				<div class="cig-modal-int">
-					<div class="cig-modal-image"><?php echo $img; ?></div>
+				<div class="cig-modal-int" data-featherlight-gallery>
+					<div class="cig-modal-image"><?php echo $img['orig'][0]; ?></div>
 					<div class="cig-modal-comment">
 						<p>By <?php echo $image['author']; ?> on <?php echo $image['date']; ?></p>
 						<?php echo $image['comment']; ?>
