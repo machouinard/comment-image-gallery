@@ -22,16 +22,21 @@
   grid-template-columns: 5fr 3fr;
 }
 
+.cig-modal-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .cig-modal-comment {
   padding: 0 1rem;
 }
 .cig-modal-comment p {
   font-weight: bold;
-  text-decoration: underline;
 }
 
 .featherlight-gallery2 {
-  background: rgba(100, 100, 100, 0.5);
+  background: rgba(100, 100, 100, 0.6);
 }
 
 .featherlight-gallery2 .featherlight-content {

@@ -31,6 +31,7 @@ function cig_scripts() {
 	wp_enqueue_script( 'cig-fljs', CIG_URL . 'assets/js/featherlight.min.js', [], '1.7.14', true );
 	wp_enqueue_script( 'cig-flgjs', CIG_URL . 'assets/js/featherlight.gallery.min.js', [], '1.7.14', true );
 	wp_enqueue_script( 'cig-js', CIG_URL . 'assets/js/main.js', ['jquery', 'cig-fljs'], $ver, true );
+	wp_enqueue_script( 'cig-flswipe', '//cdnjs.cloudflare.com/ajax/libs/detect_swipe/2.1.1/jquery.detect_swipe.min.js', [], '2.1.1', true );
 	wp_enqueue_style( 'cig-flcss', CIG_URL . 'assets/css/featherlight.min.css', [], '1.7.14' );
 	wp_enqueue_style( 'cig-flgcss', CIG_URL . 'assets/css/featherlight.gallery.min.css', [], '1.7.14' );
 	wp_enqueue_style( 'cig-style', CIG_URL . 'assets/css/cig.css', [], $css_ver );
@@ -50,9 +51,12 @@ function cig_comment_form_gallery() {
 	$first_four = $choco->first_four();
 
 	global $_wp_additional_image_sizes;
+	foreach( $first_four as $first ) {
+
+	}
 
 	?>
-	<p><a href="#" data-featherlight="#cig-gallery">Gallery</a> </p>
+	<p><a class="cig-link" href="#cig-gallery" >Gallery</a> </p>
 	<?php
 
 	echo '<div id="cig-gallery-wrapper">';
@@ -62,12 +66,15 @@ function cig_comment_form_gallery() {
 		<div class="cig-image">
 		<?php
 		foreach ( $image['src'] as $img ) {
-			echo '<a class="fl" href="#cig-' . intval( $comment_id ) . '">' . $img['square'][0] . '</a>';
+			echo '<a class="cig-fl" href="#cig-' . intval( $comment_id ) . '">' . $img['square'][0] . '</a>';
 			?>
 			<div class="cig-modal" id="cig-<?php echo intval( $comment_id ); ?>">
 				<div class="cig-modal-int" data-featherlight-gallery>
-					<div class="cig-modal-image"><?php echo $img['orig'][0]; ?></div>
+					<div class="cig-modal-image">
+						<?php echo $img['orig'][0]; ?>
+					</div>
 					<div class="cig-modal-comment">
+						<p><a class="cig-link" href="#cig-gallery" >Gallery</a> </p>
 						<p>By <?php echo $image['author']; ?> on <?php echo $image['date']; ?></p>
 						<?php echo $image['comment']; ?>
 					</div>

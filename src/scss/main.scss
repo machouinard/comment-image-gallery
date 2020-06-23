@@ -31,6 +31,9 @@
 .cig-modal-image {
 	//flex-grow: 1;
 	//width: 500px;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 .cig-modal-comment {
 
@@ -38,12 +41,12 @@
 
 	p {
 		font-weight: bold;
-		text-decoration: underline;
+		//text-decoration: underline;
 	}
 }
 
 .featherlight-gallery2 {
-	background: rgba(100,100,100,0.5);
+	background: rgba(100,100,100,0.6);
 }
 .featherlight-gallery2 .featherlight-content {
 	background: #fff;
