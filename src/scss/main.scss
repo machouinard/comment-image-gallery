@@ -1,55 +1,47 @@
-#cig-gallery-wrapper {
-	display: none;
-}
 
-#cig-gallery {
-	display: flex;
-	flex-wrap: wrap;
-	margin-top: 2rem;
-	//justify-content: space-around;
 
-	.cig-image {
-		width: 150px;
-		margin-right: 5px;
-	}
-	//.cig-image:last-of-type {
-	//	margin-right: 0;
-	//}
-}
-
-.cig-modal {
-	display: none;
-	width: 60vw;
-}
-
-.cig-modal-int {
+#intro-gallery {
 	display: grid;
-	grid-template-columns: 5fr 3fr;
-	//justify-content: space-between;
+	grid-template-columns: repeat(5, 1fr);
 }
 
-.cig-modal-image {
-	//flex-grow: 1;
-	//width: 500px;
+div.intro-image-container {
 	position: relative;
-	width: 100%;
-	height: 100%;
-}
-.cig-modal-comment {
+	width: 150px;
+	height: 150px;
 
-	padding: 0 1rem;
-
-	p {
-		font-weight: bold;
-		//text-decoration: underline;
+	img {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
+
+	span {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 2rem;
+		height: 2rem;
+		width: 2rem;
+		color: #fff;
+	}
+
 }
+
 
 .featherlight-gallery2 {
 	background: rgba(100,100,100,0.6);
 }
 .featherlight-gallery2 .featherlight-content {
 	background: #fff;
+	//height: 500px;
+	height:100%;
+	width: 60%;
 }
 .featherlight-gallery2 .featherlight-next:hover,
 .featherlight-gallery2 .featherlight-previous:hover {
@@ -68,7 +60,7 @@
 }
 .featherlight-gallery2  .featherlight-close {
 	background: transparent;
-	color: #fff;
+	color: #3c3f41;
 	font-size: 1.2em;
 }
 .featherlight-gallery2.featherlight-last-slide .featherlight-next,

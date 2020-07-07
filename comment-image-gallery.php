@@ -22,6 +22,8 @@ if ( ! defined( 'CIG_PATH' ) ) {
 	define( 'CIG_PATH', plugin_dir_path( __FILE__ ) );
 }
 
+add_image_size( 'cig-image', 800, 800 );
+
 require_once CIG_PATH . 'inc/class-comment-images.php';
 
 add_action( 'wp_enqueue_scripts', 'cig_scripts' );
@@ -41,50 +43,60 @@ add_action( 'wpdiscuz_comment_form_before', 'cig_comment_form_gallery', 11 );
 function cig_comment_form_gallery() {
 
 	$choco = \Chocolate\chocoloate_images();
-
+	// Get all comment images.
 	$images = $choco->get_images();
-
+	// Bail if no images found.
 	if ( ! $images ) {
 		return;
 	}
-
-	$first_four = $choco->first_four();
+	// Get
+	$intro_images = $choco->first_four();
 
 	global $_wp_additional_image_sizes;
-	foreach( $first_four as $first ) {
-
-	}
 
 	?>
-	<p><a class="cig-link" href="#cig-gallery" >Gallery</a> </p>
-	<?php
-
-	echo '<div id="cig-gallery-wrapper">';
-	echo '<div id="cig-gallery">';
-	foreach( $images as $comment_id => $image ) {
-		?>
-		<div class="cig-image">
+<!--	Start Intro Gallery Div-->
+	<div id="intro-gallery">
 		<?php
-		foreach ( $image['src'] as $img ) {
-			echo '<a class="cig-fl" href="#cig-' . intval( $comment_id ) . '">' . $img['square'][0] . '</a>';
+		$x = 1;
+		$span = '';
+		foreach( $intro_images as $id => $image ) {
+			if ( count( $intro_images ) === $x ) {
+				$span = '<span>' . count( $images ) . '</span>';
+			}
+			$thumb = <<<THMB
+<a data-link="gi-{$x}" class="intro" href="#">
+	{$image['src']['related'][0]}
+</a>
+
+THMB;
 			?>
-			<div class="cig-modal" id="cig-<?php echo intval( $comment_id ); ?>">
-				<div class="cig-modal-int" data-featherlight-gallery>
-					<div class="cig-modal-image">
-						<?php echo $img['orig'][0]; ?>
-					</div>
-					<div class="cig-modal-comment">
-						<p><a class="cig-link" href="#cig-gallery" >Gallery</a> </p>
-						<p>By <?php echo $image['author']; ?> on <?php echo $image['date']; ?></p>
-						<?php echo $image['comment']; ?>
-					</div>
-				</div>
+			<div class="intro-image-container">
+				<?php
+				echo $thumb;
+				echo $span;
+			?>
 			</div>
+
 			<?php
+
+			$x++;
 		}
 		?>
-		</div>
-		<?php
+	</div>
+<!--	End Intro Gallery Div-->
+<!--Gallery Link-->
+	<p><a class="cig-link" href="#cig-gallery" >Gallery</a> </p>
+<!--End Gallery Link-->
+	<?php
+
+	echo '<div id="main-gallery-container">'; // Start Main Gallery Container
+	echo '<div id="main-gallery">';  // Start Main Gallery
+	$x = 1;
+	foreach( $images as $comment_id => $image ) {
+
 	}
-	echo '</div></div>';
+	echo '</div></div>';// End Main Gallery, Main Gallery Container
 }
+
+

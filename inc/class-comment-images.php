@@ -36,8 +36,9 @@ class Images {
 					$images[ $comment->comment_ID ]['author'] = $comment->comment_author;
 					$images[ $comment->comment_ID ]['date'] = $date;
 					foreach( $attachments['images'] as $attach_id ) {
-						$images[ $comment->comment_ID ]['src'][$attach_id]['orig'][] = wp_get_attachment_image( $attach_id, 'wprm-metadate-4_3' );
-						$images[ $comment->comment_ID ]['src'][$attach_id]['square'][] = wp_get_attachment_image( $attach_id, 'related' );
+//						$images[ $comment->comment_ID ]['src'][$attach_id]['orig'][] = wp_get_attachment_image_src( $attach_id, 'cig-image' );
+//						$images[ $comment->comment_ID ]['src'][$attach_id]['square'][] = wp_get_attachment_image_src( $attach_id, 'related' );
+						$images[ $comment->comment_ID ]['src']['related'][] = wp_get_attachment_image( $attach_id, [150,150] );
 					}
 				}
 			}
@@ -50,7 +51,7 @@ class Images {
 
 	public function first_four() {
 
-		return array_slice( $this->images, 0, 4, true );
+		return array_slice( $this->images, 0, 5, true );
 	}
 
 }
