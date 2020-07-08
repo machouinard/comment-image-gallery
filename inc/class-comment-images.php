@@ -28,6 +28,7 @@ class Images {
 		$images = [];
 		foreach( $comments as $comment ) {
 
+			$rating = get_comment_meta( $comment->comment_ID, 'wprm-comment-rating', true );
 			$attachments = get_comment_meta( $comment->comment_ID, 'wmu_attachments', true );
 			if ( $attachments ) {
 				if ( isset( $attachments['images'] ) ) {
@@ -35,10 +36,12 @@ class Images {
 					$images[ $comment->comment_ID ]['comment'] = $comment->comment_content;
 					$images[ $comment->comment_ID ]['author'] = $comment->comment_author;
 					$images[ $comment->comment_ID ]['date'] = $date;
+					$images[ $comment->comment_ID ]['rating'] = $rating;
 					foreach( $attachments['images'] as $attach_id ) {
 //						$images[ $comment->comment_ID ]['src'][$attach_id]['orig'][] = wp_get_attachment_image_src( $attach_id, 'cig-image' );
 //						$images[ $comment->comment_ID ]['src'][$attach_id]['square'][] = wp_get_attachment_image_src( $attach_id, 'related' );
-						$images[ $comment->comment_ID ]['src']['related'][] = wp_get_attachment_image( $attach_id, [150,150] );
+						$images[ $comment->comment_ID ]['src'][$attach_id]['related'] = wp_get_attachment_image( $attach_id, [150,150] );
+						$images[ $comment->comment_ID ]['src'][$attach_id]['display'] = wp_get_attachment_image( $attach_id, 'cig-image' );
 					}
 				}
 			}

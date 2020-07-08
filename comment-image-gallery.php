@@ -64,29 +64,28 @@ function cig_comment_form_gallery() {
 			if ( count( $intro_images ) === $x ) {
 				$span = '<span>' . count( $images ) . '</span>';
 			}
-			$thumb = <<<THMB
-<a data-link="gi-{$x}" class="intro" href="#">
-	{$image['src']['related'][0]}
+			foreach( $image['src'] as $id => $img ) {
+				$thumb = <<<THMB
+<div class="intro-image-container">
+<a data-link="gi-{$id}" class="intro" href="#">
+	{$img['related']}
 </a>
+{$span}
+</div>
 
 THMB;
-			?>
-			<div class="intro-image-container">
-				<?php
+
 				echo $thumb;
-				echo $span;
-			?>
-			</div>
 
-			<?php
 
-			$x++;
+				$x++;
+			}
 		}
 		?>
 	</div>
 <!--	End Intro Gallery Div-->
 <!--Gallery Link-->
-	<p><a class="cig-link" href="#cig-gallery" >Gallery</a> </p>
+	<p><a class="link" href="#" data-featherlight="#display-gallery">Gallery</a></p>
 <!--End Gallery Link-->
 	<?php
 
@@ -94,9 +93,56 @@ THMB;
 	echo '<div id="main-gallery">';  // Start Main Gallery
 	$x = 1;
 	foreach( $images as $comment_id => $image ) {
+		foreach( $image['src'] as $id => $img ) {
+			$related = $img['related'];
+			$display = $img['display'];
+			$div = <<<ITEM
+			<div class="gallery-item">
+				<a class="main" data-link="gi-{$id}" id="gi-{$id}" href="#mgi-{$id}">
+					<div class="thumb-holder">{$related}</div>
+				</a>
+				<div class="mgi-wrapper">
+					<div id="mgi-{$id}" class="mgi">
+						<div class="mgi-image">{$display}</div>
+						<div class="mgi-text">
+							<p>{$image['rating']} {$image['author']} on {$image['date']}</p>
+							<p>{$image['comment']}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+ITEM;
+
+			echo $div;
+		}
 
 	}
 	echo '</div></div>';// End Main Gallery, Main Gallery Container
+	?>
+	<div id="display-gallery-container">
+		<!--		<div id="main-gallery" data-featherlight-gallery data-featherlight-filter="a.main">-->
+		<div id="display-gallery">
+
+			<?php
+			foreach( $images as $comment_id => $image ) {
+				foreach ( $image['src'] as $id => $img ) {
+					$related = $img['related'];
+					$div = <<<ITEM
+			<div class="gallery-item">
+				<a class="intro" data-link="gi-{$id}" id="gi-{$id}" href="#mgi-{$id}">
+					<div class="thumb-holder">{$img['related']}</div>
+				</a>
+
+			</div>
+ITEM;
+				}
+				echo $div;
+			}
+			?>
+
+		</div>
+	</div>
+	<?php
 }
 
 
