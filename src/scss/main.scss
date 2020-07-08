@@ -37,6 +37,12 @@ div.intro-image-container {
 
 }
 
+a.link::before {
+	font-family: Dashicons;
+	content: "\f538";
+	padding-right:5px;
+}
+
 span.single-gallery-link {
 	position: absolute;
 	top: 5px;

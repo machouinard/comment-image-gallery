@@ -5,7 +5,7 @@
     $('a.main').featherlightGallery();
 
     $.featherlightGallery.prototype.afterOpen = function () {
-      var link = $('<span class="single-gallery-link"><a class="link" href="#" data-featherlight="#display-gallery">View Gallery Images</a></span>');
+      var link = $('<span class="single-gallery-link"><a class="link" href="#" data-featherlight="#display-gallery">View Gallery</a></span>');
       $('.featherlight .featherlight-content').prepend(link);
       $(link).click(function (e) {
         $.featherlightGallery.close();
