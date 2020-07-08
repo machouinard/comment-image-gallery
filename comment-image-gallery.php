@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:     Comment Image Gallery
- * Plugin URI:      https://livinghealthywithchocolate.com
+ * Plugin URI:      /desserts/paleo-chocolate-cake-grain-gluten-dairy-free-3341/
  * Description:     Add image gallery from comment images.
  * Author:          Adriana
  * Author URI:      https://livinghealthywithchocolate.com
@@ -10,6 +10,7 @@
  * Version:         0.1.0
  *
  * @package         Comment_Image_Gallery
+ *
  */
 
 defined( 'ABSPATH' ) || die();
@@ -42,6 +43,11 @@ function cig_scripts() {
 add_action( 'wpdiscuz_comment_form_before', 'cig_comment_form_gallery', 11 );
 function cig_comment_form_gallery() {
 
+	$comment_ratings = WP_PLUGIN_DIR . '/wp-recipe-maker/templates/public/comment-rating.php';
+	if ( ! file_exists( $comment_ratings ) ) {
+		$comment_ratings = false;
+	}
+
 	$choco = \Chocolate\chocoloate_images();
 	// Get all comment images.
 	$images = $choco->get_images();
@@ -59,11 +65,12 @@ function cig_comment_form_gallery() {
 	<div id="intro-gallery">
 		<?php
 		$x = 1;
-		$span = '';
 		foreach( $intro_images as $id => $image ) {
-			if ( count( $intro_images ) === $x ) {
+			$span = '';
+			if ( 1 === $x ) {
 				$span = '<span>' . count( $images ) . '</span>';
 			}
+			$x++;
 			foreach( $image['src'] as $id => $img ) {
 				$thumb = <<<THMB
 <div class="intro-image-container">
@@ -78,8 +85,8 @@ THMB;
 				echo $thumb;
 
 
-				$x++;
 			}
+
 		}
 		?>
 	</div>
@@ -96,6 +103,14 @@ THMB;
 		foreach( $image['src'] as $id => $img ) {
 			$related = $img['related'];
 			$display = $img['display'];
+			$rating = $image['rating'];
+			$stars = '';
+			if ( $comment_ratings && "0" != $rating ) {
+				ob_start();
+				include( $comment_ratings );
+				$stars = ob_get_contents();
+				ob_clean();
+			}
 			$div = <<<ITEM
 			<div class="gallery-item">
 				<a class="main" data-link="gi-{$id}" id="gi-{$id}" href="#mgi-{$id}">
@@ -105,7 +120,8 @@ THMB;
 					<div id="mgi-{$id}" class="mgi">
 						<div class="mgi-image">{$display}</div>
 						<div class="mgi-text">
-							<p>{$image['rating']} {$image['author']} on {$image['date']}</p>
+							{$stars}
+							<p>{$image['author']} on {$image['date']}</p>
 							<p>{$image['comment']}</p>
 						</div>
 					</div>
