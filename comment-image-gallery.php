@@ -69,10 +69,11 @@ function cig_comment_form_gallery() {
 	<div id="intro-gallery">
 		<?php
 		$x = 1;
+		$more = count( $images ) - 5;
 		foreach( $intro_images as $id => $image ) {
 			$span = '';
-			if ( 1 === $x ) {
-				$span = '<span>+' . count( $images ) . '</span>';
+			if ( 1 === $x && 5 < count($images) ) {
+				$span = '<span>+' . $more . '</span>';
 			}
 			$x++;
 			foreach( $image['src'] as $id => $img ) {
@@ -125,7 +126,7 @@ THMB;
 						<div class="mgi-image">{$display}</div>
 						<div class="mgi-text">
 							{$stars}
-							<p>{$image['author']} on {$image['date']}</p>
+							<p class="cig-author"><a href="#comment-{$comment_id}">{$image['date']}</a> by {$image['author']}</p>
 							<p>{$image['comment']}</p>
 						</div>
 					</div>

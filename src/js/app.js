@@ -16,7 +16,6 @@
 			$.featherlight.close();
 			// get ID from data attribute of thumbnail
 			let id = $( this ).data( 'link' );
-			console.log( id );
 			// Get same thumb in gallery and trigger a click
 			let thumb = document.getElementById( id );
 			$( thumb ).click();

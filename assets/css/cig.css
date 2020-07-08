@@ -83,6 +83,11 @@ span.single-gallery-link {
   color: #222;
 }
 
+p.cig-author {
+  font-weight: bold;
+  color: #000;
+}
+
 @media screen and (max-width: 800px) {
   #intro-gallery {
     grid-template-columns: repeat(4, 1fr);
