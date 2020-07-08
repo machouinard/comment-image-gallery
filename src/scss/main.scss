@@ -78,7 +78,7 @@ span.single-gallery-link {
 	height: 500px;
 	grid-template-columns: 3fr 2fr;
 	column-gap:10px;
-	margin-top: 1rem;
+	margin-top: 2rem;
 }
 
 .featherlight-previous span,
@@ -89,6 +89,14 @@ span.single-gallery-link {
 
 @media screen and ( max-width: 800px ) {
 	#intro-gallery {
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(4, 1fr);
+		.intro-image-container:last-of-type {
+			display: none;
+		}
+	}
+}
+@media screen and ( max-width: 1024px ) {
+	.featherlight-previous {
+		top:30px;
 	}
 }

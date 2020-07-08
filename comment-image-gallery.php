@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     Comment Image Gallery
  * Plugin URI:      /desserts/paleo-chocolate-cake-grain-gluten-dairy-free-3341/
- * Description:     Add image gallery from comment images.
+ * Description:     Display comment images in gallery
  * Author:          Adriana
  * Author URI:      https://livinghealthywithchocolate.com
  * Text Domain:     comment-image-gallery
@@ -42,14 +42,10 @@ function cig_scripts() {
 }
 
 //add_action( 'wpdiscuz_comment_form_before', 'cig_comment_form_gallery', 11 );
-add_action( 'genesis_after_after-entry_widget_area', 'cig_comment_form_gallery', 11 );
+add_action( 'genesis_after_entry_content', 'cig_comment_form_gallery', 5 );
 function cig_comment_form_gallery() {
 
-	echo '<h2>Comment Images</h2>';
-	$comment_ratings = WP_PLUGIN_DIR . '/wp-recipe-maker/templates/public/comment-rating.php';
-	if ( ! file_exists( $comment_ratings ) ) {
-		$comment_ratings = false;
-	}
+
 
 	$choco = \Chocolate\chocoloate_images();
 	// Get all comment images.
@@ -61,7 +57,12 @@ function cig_comment_form_gallery() {
 	// Get
 	$intro_images = $choco->first_four();
 
-	global $_wp_additional_image_sizes;
+	$comment_ratings = WP_PLUGIN_DIR . '/wp-recipe-maker/templates/public/comment-rating.php';
+	if ( ! file_exists( $comment_ratings ) ) {
+		$comment_ratings = false;
+	}
+
+	echo '<h3 class="related-title">Reader\'s Images</h3>';
 
 	?>
 <!--	Start Intro Gallery Div-->
@@ -71,7 +72,7 @@ function cig_comment_form_gallery() {
 		foreach( $intro_images as $id => $image ) {
 			$span = '';
 			if ( 1 === $x ) {
-				$span = '<span>' . count( $images ) . '</span>';
+				$span = '<span>+' . count( $images ) . '</span>';
 			}
 			$x++;
 			foreach( $image['src'] as $id => $img ) {

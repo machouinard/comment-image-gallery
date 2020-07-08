@@ -27,6 +27,9 @@ class Images {
 		$comments = get_comments( [ 'post_id' => $post->ID ] );
 		$images = [];
 		foreach( $comments as $comment ) {
+			if ( 'Adriana' == $comment->comment_author ) {
+				continue;
+			}
 
 			$rating = get_comment_meta( $comment->comment_ID, 'wprm-comment-rating', true );
 			$attachments = get_comment_meta( $comment->comment_ID, 'wmu_attachments', true );
