@@ -23,7 +23,7 @@ if ( ! defined( 'CIG_PATH' ) ) {
 	define( 'CIG_PATH', plugin_dir_path( __FILE__ ) );
 }
 
-add_image_size( 'cig-image', 800, 800 );
+add_image_size( 'cig-image', 500, 500 );
 
 require_once CIG_PATH . 'inc/class-comment-images.php';
 
@@ -41,9 +41,11 @@ function cig_scripts() {
 	wp_enqueue_style( 'cig-style', CIG_URL . 'assets/css/cig.css', [], $css_ver );
 }
 
-add_action( 'wpdiscuz_comment_form_before', 'cig_comment_form_gallery', 11 );
+//add_action( 'wpdiscuz_comment_form_before', 'cig_comment_form_gallery', 11 );
+add_action( 'genesis_after_after-entry_widget_area', 'cig_comment_form_gallery', 11 );
 function cig_comment_form_gallery() {
 
+	echo '<h2>Comment Images</h2>';
 	$comment_ratings = WP_PLUGIN_DIR . '/wp-recipe-maker/templates/public/comment-rating.php';
 	if ( ! file_exists( $comment_ratings ) ) {
 		$comment_ratings = false;
