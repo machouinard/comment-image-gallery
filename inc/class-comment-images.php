@@ -23,6 +23,8 @@ class Images {
 	/**
 	 * Return comment images
 	 *
+	 * Uses Transients API
+	 *
 	 * @return array|bool
 	 * @since 1.0.0
 	 *
@@ -31,40 +33,54 @@ class Images {
 
 		global $post;
 
-		if ( ! $post || ! is_singular( 'post' ) || 'post' !== $post->post_type ) {
+		if ( ! $post ) {
 			return [];
 		}
 
-		$comments = get_comments( [ 'post_id' => $post->ID ] );
-		$images   = [];
-		foreach ( $comments as $comment ) {
-			if ( 'Adriana' == $comment->comment_author ) {
-				continue;
+		// If transient not found, go dig up all the comment images.
+		if ( ! $this->images = get_transient( 'cig-' . $post->ID ) ) {
+
+			$comments = get_comments( [ 'post_id' => $post->ID ] );
+
+			if ( empty( $comments ) ) {
+				return;
 			}
 
-			$rating      = get_comment_meta( $comment->comment_ID, 'wprm-comment-rating', true );
-			$attachments = get_comment_meta( $comment->comment_ID, 'wmu_attachments', true );
-			if ( $attachments ) {
-				if ( isset( $attachments['images'] ) ) {
-					$date                                      = date( 'M j, Y',
-						strtotime( $comment->comment_date ) );
-					$images[ $comment->comment_ID ]['comment'] = $comment->comment_content;
-					$images[ $comment->comment_ID ]['author']  = $comment->comment_author;
-					$images[ $comment->comment_ID ]['date']    = $date;
-					$images[ $comment->comment_ID ]['rating']  = $rating;
-					foreach ( $attachments['images'] as $attach_id ) {
-						//						$images[ $comment->comment_ID ]['src'][$attach_id]['orig'][] = wp_get_attachment_image_src( $attach_id, 'cig-image' );
-						//						$images[ $comment->comment_ID ]['src'][$attach_id]['square'][] = wp_get_attachment_image_src( $attach_id, 'related' );
-						$images[ $comment->comment_ID ]['src'][ $attach_id ]['related'] = wp_get_attachment_image( $attach_id,
-							[ 150, 150 ] );
-						$images[ $comment->comment_ID ]['src'][ $attach_id ]['display'] = wp_get_attachment_image( $attach_id,
-							'cig-image' );
+			$images = [];
+			foreach ( $comments as $comment ) {
+
+				if ( 'Adriana' == $comment->comment_author ) {
+					continue;
+				}
+
+				$rating      = get_comment_meta( $comment->comment_ID,
+					'wprm-comment-rating',
+					true );
+				$attachments = get_comment_meta( $comment->comment_ID, 'wmu_attachments', true );
+
+				if ( $attachments ) {
+					if ( isset( $attachments['images'] ) ) {
+						$date                                      = date( 'M j, Y',
+							strtotime( $comment->comment_date ) );
+						$images[ $comment->comment_ID ]['comment'] = $comment->comment_content;
+						$images[ $comment->comment_ID ]['author']  = $comment->comment_author;
+						$images[ $comment->comment_ID ]['date']    = $date;
+						$images[ $comment->comment_ID ]['rating']  = $rating;
+						foreach ( $attachments['images'] as $attach_id ) {
+							$images[ $comment->comment_ID ]['src'][ $attach_id ]['related'] = wp_get_attachment_image( $attach_id,
+								[ 150, 150 ] );
+							$images[ $comment->comment_ID ]['src'][ $attach_id ]['display'] = wp_get_attachment_image( $attach_id,
+								'cig-image' );
+						}
 					}
 				}
 			}
-		}
 
-		$this->images = $images;
+			$this->images = $images;
+
+			// Save image array as transient.  No expiration since this key is deleted when new comments are added.
+			set_transient( 'cig-' . $post->ID, $images );
+		}
 
 		return empty( $this->images ) ? false : $this->images;
 	}
