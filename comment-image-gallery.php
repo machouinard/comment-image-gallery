@@ -66,7 +66,8 @@ function cig_comment_form_gallery() {
 
 	?>
 <!--	Start Intro Gallery Div-->
-	<div id="intro-gallery">
+	<div id="intro-gallery" class="related-posts">
+		<ul class="related-list">
 		<?php
 		$x = 1;
 		$more = count( $images ) - 5;
@@ -78,12 +79,12 @@ function cig_comment_form_gallery() {
 			$x++;
 			foreach( $image['src'] as $id => $img ) {
 				$thumb = <<<THMB
-<div class="intro-image-container">
+<li class="intro-image-container">
 <a data-link="gi-{$id}" class="intro" href="#">
 	{$img['related']}
 </a>
 {$span}
-</div>
+</li>
 
 THMB;
 
@@ -94,6 +95,7 @@ THMB;
 
 		}
 		?>
+	</ul>
 	</div>
 <!--	End Intro Gallery Div-->
 <!--Gallery Link-->
