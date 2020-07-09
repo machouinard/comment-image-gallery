@@ -59,6 +59,9 @@ function cig_scripts() {
 
 add_action( 'genesis_after_entry_content', 'cig_comment_form_gallery', 5 );
 function cig_comment_form_gallery() {
+	if ( ! is_singular( 'post' ) ) {
+		return;
+	}
 
 	$choco = \Chocolate\chocoloate_images();
 	// Get all comment images.
