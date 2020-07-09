@@ -28,35 +28,8 @@ add_image_size( 'cig-image', 500, 500 );
 require_once CIG_PATH . 'inc/class-gallery.php';
 require_once CIG_PATH . 'inc/class-comment-images.php';
 
-add_action( 'wp_enqueue_scripts', 'cig_scripts' );
-function cig_scripts() {
-
-	$ver     = filemtime( CIG_PATH . 'assets/js/main.js' );
-	$css_ver = filemtime( CIG_PATH . 'assets/css/cig.css' );
-	wp_enqueue_script( 'cig-fljs', CIG_URL . 'assets/js/featherlight.min.js', [], '1.7.14', true );
-	wp_enqueue_script( 'cig-flgjs',
-		CIG_URL . 'assets/js/featherlight.gallery.min.js',
-		[],
-		'1.7.14',
-		true );
-	wp_enqueue_script( 'cig-js',
-		CIG_URL . 'assets/js/main.js',
-		[ 'jquery', 'cig-fljs' ],
-		$ver,
-		true );
-	wp_enqueue_script( 'cig-flswipe',
-		'//cdnjs.cloudflare.com/ajax/libs/detect_swipe/2.1.1/jquery.detect_swipe.min.js',
-		[],
-		'2.1.1',
-		true );
-	wp_enqueue_style( 'cig-flcss', CIG_URL . 'assets/css/featherlight.min.css', [], '1.7.14' );
-	wp_enqueue_style( 'cig-flgcss',
-		CIG_URL . 'assets/css/featherlight.gallery.min.css',
-		[],
-		'1.7.14' );
-	wp_enqueue_style( 'dashicons' );
-	wp_enqueue_style( 'cig-style', CIG_URL . 'assets/css/cig.css', [], $css_ver );
-}
+// Enqueue scripts
+add_action( 'wp_enqueue_scripts', 'Chocolate\Gallery::enqueue' );
 
 // Output image gallery markup after recipe, before related recipes
 add_action( 'genesis_after_entry_content', 'cig_comment_form_gallery', 5 );
