@@ -41,12 +41,14 @@ class Images {
 		if ( ! $this->images = get_transient( 'cig-' . $post->ID ) ) {
 
 			$comments = get_comments( [ 'post_id' => $post->ID ] );
+			$images = [];
 
 			if ( empty( $comments ) ) {
+				set_transient( 'cig-' . $post->ID, $images );
+
 				return;
 			}
 
-			$images = [];
 			foreach ( $comments as $comment ) {
 
 				if ( 'Adriana' == $comment->comment_author ) {
@@ -86,15 +88,17 @@ class Images {
 	}
 
 	/**
-	 * Return first 5 images
+	 * Return up to first (5) images
+	 *
+	 * @param int $num
 	 *
 	 * @return array
 	 * @since 1.0.0
 	 *
 	 */
-	public function intro_images() {
+	public function intro_images( $num = 5 ) {
 
-		return array_slice( $this->images, 0, 5, true );
+		return array_slice( $this->images, 0, (int) $num, true );
 	}
 
 }
