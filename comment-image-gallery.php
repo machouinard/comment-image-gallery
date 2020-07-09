@@ -182,4 +182,11 @@ ITEM;
 	<?php
 }
 
+add_action( 'wp_insert_comment', 'cig_clear_transients', 20, 2 );
+function cig_clear_transients( $id, $comment ) {
+	global $wpdb;
+	$sql = "SELECT `comment_post_ID` from {$wpdb->comments} WHERE `comment_ID` = %d";
+	$post_id = $wpdb->get_var( $wpdb->prepare( $sql, $id ) );
+	delete_transient( 'cig-' . $post_id );
+}
 
