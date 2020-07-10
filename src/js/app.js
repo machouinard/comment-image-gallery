@@ -3,6 +3,16 @@
 	$(function() {
 		$( 'a.main' ).featherlightGallery();
 
+		$.featherlight.prototype.afterOpen = function() {
+			const title = $('<p>Click photos to enlarge and read reviews</p>');
+			const commentLink = $('<a href="#comments">Add a comment and photo</a>');
+			$('.featherlight .featherlight-content' ).prepend(title);
+			$('.featherlight .featherlight-content' ).append(commentLink);
+			$(commentLink).click( e => {
+				$.featherlight.close();
+			})
+		};
+
 		$.featherlightGallery.prototype.afterOpen = function() {
 			const link = $( '<span class="single-gallery-link"><a class="link" href="#" data-featherlight="#display-gallery">View Gallery</a></span>' );
 			$( '.featherlight .featherlight-content' ).prepend( link );
