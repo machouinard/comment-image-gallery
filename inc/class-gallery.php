@@ -58,10 +58,16 @@ THMB;
 			</ul>
 		</div>
 		<!--	End Intro Gallery Div-->
-		<!--Gallery Link-->
-		<p><a class="link" href="#" data-featherlight="#display-gallery">Gallery</a></p>
-		<!--End Gallery Link-->
+
 		<?php
+
+		if ( 5 < count( $this->images ) ):
+		?>
+			<!--Gallery Link-->
+			<p><a class="link" href="#" data-featherlight="#display-gallery">Gallery</a></p>
+			<!--End Gallery Link-->
+		<?php
+		endif;
 
 		// Borrow wp-recipe-maker ratings output
 		$comment_ratings = WP_PLUGIN_DIR . '/wp-recipe-maker/templates/public/comment-rating.php';
