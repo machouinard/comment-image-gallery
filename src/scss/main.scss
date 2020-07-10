@@ -34,6 +34,11 @@ span.single-gallery-link {
 
 	.thumb-holder img {
 		border-radius: 5px;
+		opacity: .8;
+
+		&:hover {
+			opacity:1;
+		}
 	}
 }
 
@@ -89,5 +94,12 @@ p.cig-author {
 @media screen and ( max-width: 1024px ) {
 	.featherlight-previous {
 		top:30px;
+	}
+	#display-gallery .gallery-item {
+
+		.thumb-holder img {
+			opacity: 1;
+
+		}
 	}
 }
