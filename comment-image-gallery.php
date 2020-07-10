@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name:     Comment Image Gallery
- * Plugin URI:      https://livinghealthywithchocolate.com
- * Description:     Add image gallery from comment images.
+ * Plugin URI:      /desserts/paleo-chocolate-cake-grain-gluten-dairy-free-3341/
+ * Description:     Display comment images in gallery
  * Author:          Adriana
  * Author URI:      https://livinghealthywithchocolate.com
  * Text Domain:     comment-image-gallery
@@ -10,6 +10,7 @@
  * Version:         0.1.0
  *
  * @package         Comment_Image_Gallery
+ *
  */
 
 defined( 'ABSPATH' ) || die();
@@ -22,69 +23,32 @@ if ( ! defined( 'CIG_PATH' ) ) {
 	define( 'CIG_PATH', plugin_dir_path( __FILE__ ) );
 }
 
+add_image_size( 'cig-image', 500, 500 );
+
+require_once CIG_PATH . 'inc/class-gallery.php';
 require_once CIG_PATH . 'inc/class-comment-images.php';
 
-add_action( 'wp_enqueue_scripts', 'cig_scripts' );
-function cig_scripts() {
-	$ver = filemtime( CIG_PATH . 'assets/js/main.js' );
-	$css_ver = filemtime( CIG_PATH . 'assets/css/cig.css' );
-	wp_enqueue_script( 'cig-fljs', CIG_URL . 'assets/js/featherlight.min.js', [], '1.7.14', true );
-	wp_enqueue_script( 'cig-flgjs', CIG_URL . 'assets/js/featherlight.gallery.min.js', [], '1.7.14', true );
-	wp_enqueue_script( 'cig-js', CIG_URL . 'assets/js/main.js', ['jquery', 'cig-fljs'], $ver, true );
-	wp_enqueue_script( 'cig-flswipe', '//cdnjs.cloudflare.com/ajax/libs/detect_swipe/2.1.1/jquery.detect_swipe.min.js', [], '2.1.1', true );
-	wp_enqueue_style( 'cig-flcss', CIG_URL . 'assets/css/featherlight.min.css', [], '1.7.14' );
-	wp_enqueue_style( 'cig-flgcss', CIG_URL . 'assets/css/featherlight.gallery.min.css', [], '1.7.14' );
-	wp_enqueue_style( 'cig-style', CIG_URL . 'assets/css/cig.css', [], $css_ver );
-}
+// Enqueue scripts
+add_action( 'wp_enqueue_scripts', 'Chocolate\Gallery::enqueue' );
 
-add_action( 'wpdiscuz_comment_form_before', 'cig_comment_form_gallery', 11 );
+// Output image gallery markup after recipe, before related recipes
+add_action( 'genesis_after_entry_content', 'cig_comment_form_gallery', 5 );
 function cig_comment_form_gallery() {
 
-	$choco = \Chocolate\chocoloate_images();
-
-	$images = $choco->get_images();
-
-	if ( ! $images ) {
+	if ( ! is_singular( 'post' ) ) {
 		return;
 	}
-
-	$first_four = $choco->first_four();
-
-	global $_wp_additional_image_sizes;
-	foreach( $first_four as $first ) {
-
-	}
-
-	?>
-	<p><a class="cig-link" href="#cig-gallery" >Gallery</a> </p>
-	<?php
-
-	echo '<div id="cig-gallery-wrapper">';
-	echo '<div id="cig-gallery">';
-	foreach( $images as $comment_id => $image ) {
-		?>
-		<div class="cig-image">
-		<?php
-		foreach ( $image['src'] as $img ) {
-			echo '<a class="cig-fl" href="#cig-' . intval( $comment_id ) . '">' . $img['square'][0] . '</a>';
-			?>
-			<div class="cig-modal" id="cig-<?php echo intval( $comment_id ); ?>">
-				<div class="cig-modal-int" data-featherlight-gallery>
-					<div class="cig-modal-image">
-						<?php echo $img['orig'][0]; ?>
-					</div>
-					<div class="cig-modal-comment">
-						<p><a class="cig-link" href="#cig-gallery" >Gallery</a> </p>
-						<p>By <?php echo $image['author']; ?> on <?php echo $image['date']; ?></p>
-						<?php echo $image['comment']; ?>
-					</div>
-				</div>
-			</div>
-			<?php
-		}
-		?>
-		</div>
-		<?php
-	}
-	echo '</div></div>';
+	$gallery = new Chocolate\Gallery();
+	$gallery->output();
 }
+
+// Clear transients when new comments are added
+add_action( 'wp_insert_comment', 'cig_clear_transients', 20, 2 );
+function cig_clear_transients( $id, $comment ) {
+
+	global $wpdb;
+	$sql     = "SELECT `comment_post_ID` from {$wpdb->comments} WHERE `comment_ID` = %d";
+	$post_id = $wpdb->get_var( $wpdb->prepare( $sql, $id ) );
+	delete_transient( 'cig-' . $post_id );
+}
+
