@@ -103,6 +103,13 @@ class Images {
 
 }
 
+/**
+ * Expose namespaced class and its methods
+ *
+ * @return Images
+ * @since 1.0.0
+ *
+ */
 function chocoloate_images() {
 
 	$images = new Images();

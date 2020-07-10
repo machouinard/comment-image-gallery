@@ -23,11 +23,6 @@ class Gallery {
 		// Get first 5 images for immediate display.
 		$intro_images = $this->choco->intro_images();
 
-		$comment_ratings = WP_PLUGIN_DIR . '/wp-recipe-maker/templates/public/comment-rating.php';
-		if ( ! file_exists( $comment_ratings ) ) {
-			$comment_ratings = false;
-		}
-
 		echo '<h3 class="related-title">Reader\'s Images</h3>';
 
 		?>
@@ -68,6 +63,12 @@ THMB;
 		<!--End Gallery Link-->
 		<?php
 
+		// Borrow wp-recipe-maker ratings output
+		$comment_ratings = WP_PLUGIN_DIR . '/wp-recipe-maker/templates/public/comment-rating.php';
+		if ( ! file_exists( $comment_ratings ) ) {
+			$comment_ratings = false;
+		}
+
 		echo '<div id="main-gallery-container">'; // Start Main Gallery Container
 		echo '<div id="main-gallery">';  // Start Main Gallery
 		$x = 1;
@@ -80,8 +81,7 @@ THMB;
 				if ( $comment_ratings && "0" != $rating ) {
 					ob_start();
 					include( $comment_ratings );
-					$stars = ob_get_contents();
-					ob_clean();
+					$stars = ob_get_clean();
 				}
 				$div = <<<ITEM
 			<div class="gallery-item">
@@ -107,6 +107,9 @@ ITEM;
 		}
 		echo '</div></div>';// End Main Gallery, Main Gallery Container
 		?>
+<!--		"Shadow" gallery - getting featherlightGallery to work inside a featherlight modal was troublesome with the next/prev links --->
+<!--		When these thumbs are clicked we grab the ID from the data-link and trigger a click on the the main featherlightGallery-->
+<!--		Something to do with binding the gallery - next/prev only worked correctly the first time the gallery was called-->
 		<div id="display-gallery-container">
 			<div id="display-gallery">
 
@@ -116,7 +119,7 @@ ITEM;
 						$related = $img['related'];
 						$div     = <<<ITEM
 			<div class="gallery-item">
-				<a class="intro" data-link="gi-{$id}" id="gi-{$id}" href="#mgi-{$id}">
+				<a class="intro" data-link="gi-{$id}" href="#mgi-{$id}">
 					<div class="thumb-holder">{$img['related']}</div>
 				</a>
 
@@ -132,7 +135,18 @@ ITEM;
 		<?php
 	}
 
+	/**
+	 * Enqueue scripts and styles
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 *
+	 */
 	public static function enqueue() {
+		// Only enqueue on single posts
+		if ( ! is_singular( 'post' ) ) {
+			return;
+		}
 
 		$ver = filemtime( CIG_PATH . 'assets/js/main.js' );
 		$css_ver = filemtime( CIG_PATH . 'assets/css/cig.css' );

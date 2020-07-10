@@ -28,6 +28,14 @@ span.single-gallery-link {
 	left: 5px;
 }
 
+#display-gallery .gallery-item {
+	margin-bottom: 0;
+
+	.thumb-holder img {
+		border-radius: 5px;
+	}
+}
+
 .featherlight-content {
 	max-width: 900px;
 }
@@ -62,7 +70,8 @@ span.single-gallery-link {
 
 .featherlight-previous span,
 .featherlight-next span {
-	color: #222;
+	color: rgba( 100,100,100,.5);
+	//opacity: .6;
 }
 
 p.cig-author {
