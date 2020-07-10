@@ -9,6 +9,9 @@
 			$( link ).click( e => {
 				$.featherlightGallery.close();
 			} );
+			$('p.cig-author a').click( e => {
+				$.featherlightGallery.close();
+			})
 		};
 
 		$( 'a.intro' ).click( function( e ) {
