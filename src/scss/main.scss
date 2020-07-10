@@ -24,6 +24,7 @@ a.link::before {
 
 span.single-gallery-link {
 	position: absolute;
+	z-index: 9999;
 	top: 5px;
 	left: 5px;
 }
