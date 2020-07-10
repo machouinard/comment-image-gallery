@@ -75,7 +75,7 @@ span.single-gallery-link {
 
 .featherlight-previous span,
 .featherlight-next span {
-  color: rgba(100, 100, 100, 0.5);
+  color: #333;
 }
 
 p.cig-author {

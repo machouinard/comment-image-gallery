@@ -62,7 +62,7 @@ THMB;
 		<?php
 
 		if ( 5 < count( $this->images ) ):
-		?>
+			?>
 			<!--Gallery Link-->
 			<p><a class="link" href="#" data-featherlight="#display-gallery">Gallery</a></p>
 			<!--End Gallery Link-->
@@ -99,7 +99,7 @@ THMB;
 						<div class="mgi-image">{$display}</div>
 						<div class="mgi-text">
 							{$stars}
-							<p class="cig-author"><a href="#comment-{$comment_id}">{$image['date']}</a> by {$image['author']}</p>
+							<p class="cig-author">by <a href="#comment-{$comment_id}">{$image['author']}</a> on {$image['date']}</p>
 							<p>{$image['comment']}</p>
 						</div>
 					</div>
@@ -113,9 +113,9 @@ ITEM;
 		}
 		echo '</div></div>';// End Main Gallery, Main Gallery Container
 		?>
-<!--		"Shadow" gallery - getting featherlightGallery to work inside a featherlight modal was troublesome with the next/prev links --->
-<!--		When these thumbs are clicked we grab the ID from the data-link and trigger a click on the the main featherlightGallery-->
-<!--		Something to do with binding the gallery - next/prev only worked correctly the first time the gallery was called-->
+		<!--		"Shadow" gallery - getting featherlightGallery to work inside a featherlight modal was troublesome with the next/prev links --->
+		<!--		When these thumbs are clicked we grab the ID from the data-link and trigger a click on the the main featherlightGallery-->
+		<!--		Something to do with binding the gallery - next/prev only worked correctly the first time the gallery was called-->
 		<div id="display-gallery-container">
 			<div id="display-gallery">
 
@@ -149,12 +149,13 @@ ITEM;
 	 *
 	 */
 	public static function enqueue() {
+
 		// Only enqueue on single posts
 		if ( ! is_singular( 'post' ) ) {
 			return;
 		}
 
-		$ver = filemtime( CIG_PATH . 'assets/js/main.js' );
+		$ver     = filemtime( CIG_PATH . 'assets/js/main.js' );
 		$css_ver = filemtime( CIG_PATH . 'assets/css/cig.css' );
 		wp_enqueue_script( 'cig-fljs',
 			CIG_URL . 'assets/js/featherlight.min.js',

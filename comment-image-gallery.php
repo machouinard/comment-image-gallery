@@ -34,6 +34,7 @@ add_action( 'wp_enqueue_scripts', 'Chocolate\Gallery::enqueue' );
 // Output image gallery markup after recipe, before related recipes
 add_action( 'genesis_after_entry_content', 'cig_comment_form_gallery', 5 );
 function cig_comment_form_gallery() {
+
 	if ( ! is_singular( 'post' ) ) {
 		return;
 	}
@@ -44,8 +45,9 @@ function cig_comment_form_gallery() {
 // Clear transients when new comments are added
 add_action( 'wp_insert_comment', 'cig_clear_transients', 20, 2 );
 function cig_clear_transients( $id, $comment ) {
+
 	global $wpdb;
-	$sql = "SELECT `comment_post_ID` from {$wpdb->comments} WHERE `comment_ID` = %d";
+	$sql     = "SELECT `comment_post_ID` from {$wpdb->comments} WHERE `comment_ID` = %d";
 	$post_id = $wpdb->get_var( $wpdb->prepare( $sql, $id ) );
 	delete_transient( 'cig-' . $post_id );
 }

@@ -41,16 +41,17 @@ class Images {
 		if ( ! $this->images = get_transient( 'cig-' . $post->ID ) ) {
 
 			$comments = get_comments( [ 'post_id' => $post->ID ] );
-			$images = [];
+			$images   = [];
 
 			if ( empty( $comments ) ) {
 				set_transient( 'cig-' . $post->ID, $images );
 
-				return;
+				return false;
 			}
 
 			foreach ( $comments as $comment ) {
 
+				// Exclude images in responses by Adriana TODO: confirm with Adriana
 				if ( 'Adriana' == $comment->comment_author ) {
 					continue;
 				}
@@ -62,15 +63,15 @@ class Images {
 
 				if ( $attachments ) {
 					if ( isset( $attachments['images'] ) ) {
-						$date                                      = date( 'M j, Y',
-							strtotime( $comment->comment_date ) );
+						$date = date( 'M j, Y', strtotime( $comment->comment_date ) );
+
 						$images[ $comment->comment_ID ]['comment'] = $comment->comment_content;
 						$images[ $comment->comment_ID ]['author']  = $comment->comment_author;
 						$images[ $comment->comment_ID ]['date']    = $date;
 						$images[ $comment->comment_ID ]['rating']  = $rating;
 						foreach ( $attachments['images'] as $attach_id ) {
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['related'] = wp_get_attachment_image( $attach_id,
-								[ 150, 150 ] );
+								'thumbnail' );
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['display'] = wp_get_attachment_image( $attach_id,
 								'cig-image' );
 						}
