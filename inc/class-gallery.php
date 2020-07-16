@@ -23,7 +23,7 @@ class Gallery {
 		// Get first 5 images for immediate display.
 		$intro_images = $this->choco->intro_images();
 
-		echo '<h3 class="related-title">Reader\'s Images</h3>';
+		echo '<h3 class="related-title">Reader\'s Recipe Photos</h3>';
 
 		?>
 		<!--	Start Intro Gallery Div-->
