@@ -26,11 +26,10 @@ class Gallery {
 		// Get first [$this->count] images for immediate display.
 		$intro_images = $this->choco->intro_images( $this->count);
 
-		echo '<h3 class="related-title">Reader\'s Recipe Photos</h3>';
-
 		?>
 		<!--	Start Intro Gallery Div-->
 		<div id="intro-gallery" class="related-posts">
+			<h3 class="related-title">Reader's Recipe Photos</h3>
 			<ul class="related-list">
 				<?php
 				$more = count( $this->images ) - $this->count;
