@@ -41,7 +41,7 @@ function cig_comment_form_gallery() {
 	// Instantiate new Gallery
 	$gallery = new Chocolate\Gallery();
 	// Output (#) images
-	$gallery->output(10);
+	$gallery->output(5);
 }
 
 // Clear transients when new comments are added
