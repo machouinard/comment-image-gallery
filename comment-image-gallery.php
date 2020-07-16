@@ -38,8 +38,10 @@ function cig_comment_form_gallery() {
 	if ( ! is_singular( 'post' ) ) {
 		return;
 	}
+	// Instantiate new Gallery
 	$gallery = new Chocolate\Gallery();
-	$gallery->output();
+	// Output (#) images
+	$gallery->output(10);
 }
 
 // Clear transients when new comments are added

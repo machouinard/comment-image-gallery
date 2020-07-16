@@ -97,9 +97,9 @@ class Images {
 	 * @since 1.0.0
 	 *
 	 */
-	public function intro_images( $num = 5 ) {
+	public function intro_images( $count ) {
 
-		return array_slice( $this->images, 0, (int) $num, true );
+		return array_slice( $this->images, 0, (int) $count, true );
 	}
 
 }

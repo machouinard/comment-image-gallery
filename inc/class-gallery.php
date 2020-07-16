@@ -6,6 +6,7 @@ class Gallery {
 
 	protected $images;
 	protected $choco;
+	public $count = 5;
 
 	public function __construct() {
 
@@ -14,14 +15,16 @@ class Gallery {
 		$this->images = $this->choco->get_images();
 	}
 
-	public function output() {
+	public function output( $count = 5 ) {
+
+		$this->count = (int)$count;
 
 		// Bail if no images found.
 		if ( ! $this->images ) {
 			return;
 		}
-		// Get first 5 images for immediate display.
-		$intro_images = $this->choco->intro_images();
+		// Get first [$this->count] images for immediate display.
+		$intro_images = $this->choco->intro_images( $this->count);
 
 		echo '<h3 class="related-title">Reader\'s Recipe Photos</h3>';
 
@@ -30,11 +33,11 @@ class Gallery {
 		<div id="intro-gallery" class="related-posts">
 			<ul class="related-list">
 				<?php
-				$more = count( $this->images ) - 5;
+				$more = count( $this->images ) - $this->count;
 				$x    = 1;
 				foreach ( $intro_images as $id => $image ) {
 					$span = '';
-					if ( 1 === $x && 5 < count( $this->images ) ) {
+					if ( 1 === $x && $this->count < count( $this->images ) ) {
 						$span = '<span>+' . $more . '</span>';
 					}
 					$x ++;
@@ -59,15 +62,17 @@ THMB;
 		</div>
 		<!--	End Intro Gallery Div-->
 
-		<?php
 
-		if ( 5 < count( $this->images ) ):
-			?>
 			<!--Gallery Link-->
-			<p><a class="link" href="#" data-featherlight="#display-gallery">Gallery</a></p>
+			<p class="below-gallery-links">
+				<a class="add-photo-link" href="#comments" alt="add photo link">Add your photo</a>
+			<?php if ( $this->count < count( $this->images ) ): ?>
+				<span class="link-sep">|&nbsp;</span>
+				<a class="link" href="#" data-featherlight="#display-gallery">See <?php echo (int) count($this->images) - $this->count; ?> more</a>
+			<?php endif; ?>
+			</p>
 			<!--End Gallery Link-->
 		<?php
-		endif;
 
 		// Borrow wp-recipe-maker ratings output
 		$comment_ratings = WP_PLUGIN_DIR . '/wp-recipe-maker/templates/public/comment-rating.php';

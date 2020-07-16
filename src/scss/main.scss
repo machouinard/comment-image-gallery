@@ -22,6 +22,24 @@ a.link::before {
 	padding-right:5px;
 }
 
+a.add-photo-link::before {
+	font-family: Dashicons;
+	content: "\f129";
+	padding-right: 5px;
+}
+
+p.below-gallery-links {
+	text-align: right;
+
+	span {
+		color: #f5897f;
+	}
+
+	a:first-of-type {
+		padding-right: .5rem;
+	}
+}
+
 span.single-gallery-link {
 	position: absolute;
 	z-index: 9999;
