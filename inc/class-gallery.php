@@ -102,8 +102,8 @@ THMB;
 					<div id="mgi-{$id}" class="mgi">
 						<div class="mgi-image">{$display}</div>
 						<div class="mgi-text">
-							{$stars}
 							<p class="cig-author">by <a href="#comment-{$comment_id}">{$image['author']}</a> on {$image['date']}</p>
+							{$stars}
 							<p>{$image['comment']}</p>
 						</div>
 					</div>

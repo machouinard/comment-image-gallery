@@ -13,6 +13,10 @@ ul.related-list li.intro-image-container:first-of-type span {
   background: rgba(255, 255, 255, 0.7);
 }
 
+p.fl-subtitle {
+  text-align: center;
+}
+
 a.link::before {
   font-family: Dashicons;
   content: "\f538";
@@ -97,6 +101,7 @@ span.single-gallery-link {
 p.cig-author {
   font-weight: bold;
   color: #000;
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 500px) {
