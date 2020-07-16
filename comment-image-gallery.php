@@ -25,6 +25,7 @@ if ( ! defined( 'CIG_PATH' ) ) {
 
 add_image_size( 'cig-image', 500, 500 );
 
+require_once CIG_PATH . 'inc/class-plugin-settings.php';
 require_once CIG_PATH . 'inc/class-gallery.php';
 require_once CIG_PATH . 'inc/class-comment-images.php';
 
@@ -40,8 +41,9 @@ function cig_comment_form_gallery() {
 	}
 	// Instantiate new Gallery
 	$gallery = new Chocolate\Gallery();
+	$settings = get_option( 'comment_img_settings' );
 	// Output (#) images
-	$gallery->output(5);
+	$gallery->output( $settings['comment_num_images']);
 }
 
 // Clear transients when new comments are added

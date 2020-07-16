@@ -6,7 +6,7 @@
 		$.featherlight.prototype.afterOpen = function() {
 			const title = $('<h3 class="related-title">Reader\'s Recipe Photos</h3>');
 			const subtitle = $('<p class="fl-subtitle">Click photos to enlarge and read reviews</p>');
-			const commentLink = $('<a href="#comments">Add a comment and photo</a>');
+			const commentLink = $('<a class="comment-photo" href="#comments">Add a comment and photo</a>');
 			$('.featherlight .featherlight-content' ).prepend(subtitle);
 			$('.featherlight .featherlight-content' ).prepend(title);
 			$('.featherlight .featherlight-content' ).append(commentLink);
@@ -17,13 +17,18 @@
 
 		$.featherlightGallery.prototype.afterOpen = function() {
 			const link = $( '<span class="single-gallery-link"><a class="link" href="#" data-featherlight="#display-gallery">See all readers\' photos</a></span>' );
+			//const addCommentLink = $('<a class="add-comment-link" href="#comments">Add a comment and photo</a>');
 			$( '.featherlight .featherlight-content' ).prepend( link );
+			//$( '.featherlight .featherlight-content' ).append( addCommentLink );
 			$( link ).click( e => {
 				$.featherlightGallery.close();
 			} );
 			$('p.cig-author a').click( e => {
 				$.featherlightGallery.close();
-			})
+			});
+			//$(addCommentLink).click( e => {
+			//	$.featherlightGallery.close();
+			//});
 		};
 
 		$( 'a.intro' ).click( function( e ) {

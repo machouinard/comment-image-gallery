@@ -66,6 +66,25 @@ span.single-gallery-link {
 
 .featherlight-content {
 	max-width: 1000px;
+
+	a.comment-photo::before {
+		font-family: Dashicons;
+		content: "\f129";
+		padding-right: 5px;
+	}
+
+	a.add-comment-link {
+		position: absolute;
+		right: 1rem;
+		bottom: 0;
+		font-size: .85rem;
+
+		&::before {
+			font-family: Dashicons;
+			content: "\f129";
+			padding-right: 5px;
+		}
+	}
 }
 #main-gallery-container, #display-gallery-container {
 	display: none;
@@ -81,31 +100,62 @@ span.single-gallery-link {
 .mgi-image {
 	width: 100%;
 	height: 100%;
-	max-width: 500px;
-	max-height: 500px;
+	//max-width: 500px;
+	//max-height: 500px;
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	img {
+		border-radius: 5px;
+		box-shadow: 1px -1px 6px #666;
+	}
+}
+.mgi-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .featherlight .mgi.featherlight-inner {
 	display: grid;
-	height: 500px;
+	//height: 500px;
 	grid-template-columns: 3fr 2fr;
 	column-gap:10px;
-	margin-top: 2rem;
+	margin-top: 2.5rem;
 }
 
-.featherlight-previous span,
-.featherlight-next span {
-	color: #333;
+.featherlight-next,
+.featherlight-previous {
+	top: 2rem;
+	background: none;
+}
+
+.featherlight-previous:hover,
+.featherlight-next:hover {
 	//opacity: .6;
+	background: none;
+	//text-shadow: none;
+	//display: none;
+}
+.featherlight-next span,
+.featherlight-previous span {
+	color: #fff;
+	opacity: .4;
+	text-shadow: 0 0 5px #000;
 }
 
 p.cig-author {
-	font-weight: bold;
+	//font-weight: bold;
+	font-size: .85rem;
 	color:#000;
 	margin-bottom: 0;
+	z-index: 999999;
 }
 
 @media screen and ( max-width: 500px ) {
@@ -113,14 +163,21 @@ p.cig-author {
 		min-height: inherit;
 		float:left;
 	}
+}
+@media screen and ( max-width: 825px ) {
 	.featherlight .mgi.featherlight-inner {
 		grid-template-columns: 1fr;
 	}
+	p.cig-author {
+		margin-top: 1rem;
+	}
 }
 @media screen and ( max-width: 1024px ) {
-	.featherlight-previous {
+	.featherlight-previous,
+	.featherlight-next {
 		top:30px;
 	}
+
 	#display-gallery .gallery-item {
 
 		.thumb-holder img {
