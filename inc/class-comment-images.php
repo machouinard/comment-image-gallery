@@ -37,6 +37,8 @@ class Images {
 			return [];
 		}
 
+
+
 		// If transient not found, go dig up all the comment images.
 		if ( ! $this->images = get_transient( 'cig-' . $post->ID ) ) {
 
@@ -71,7 +73,7 @@ class Images {
 						$images[ $comment->comment_ID ]['rating']  = $rating;
 						foreach ( $attachments['images'] as $attach_id ) {
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['related'] = wp_get_attachment_image( $attach_id,
-								'thumbnail' );
+								'related' );
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['display'] = wp_get_attachment_image( $attach_id,
 								'cig-image' );
 						}
