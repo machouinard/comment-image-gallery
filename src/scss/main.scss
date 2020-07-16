@@ -113,6 +113,9 @@ p.cig-author {
 		min-height: inherit;
 		float:left;
 	}
+	.featherlight .mgi.featherlight-inner {
+		grid-template-columns: 1fr;
+	}
 }
 @media screen and ( max-width: 1024px ) {
 	.featherlight-previous {
