@@ -29,7 +29,7 @@ class Gallery {
 		?>
 		<!--	Start Intro Gallery Div-->
 		<div id="intro-gallery" class="related-posts">
-			<h3 class="related-title">Reader's Recipe Photos</h3>
+			<h3 class="related-title">Readers' Recipe Photos</h3>
 			<ul class="related-list">
 				<?php
 				$more = count( $this->images ) - $this->count;
