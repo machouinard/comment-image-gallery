@@ -30,7 +30,7 @@ a.add-photo-link::before {
 }
 
 p.below-gallery-links {
-  text-align: right;
+  margin-left: 10px;
 }
 p.below-gallery-links span {
   color: #f5897f;
@@ -44,6 +44,8 @@ span.single-gallery-link {
   z-index: 9999;
   top: 5px;
   left: 5px;
+  margin-left: 15px;
+  margin-top: 15px;
 }
 
 #display-gallery .gallery-item {
@@ -51,30 +53,14 @@ span.single-gallery-link {
 }
 #display-gallery .gallery-item .thumb-holder img {
   border-radius: 5px;
-  opacity: .8;
+  opacity: 1;
 }
 #display-gallery .gallery-item .thumb-holder img:hover {
-  opacity: 1;
+  opacity: .8;
 }
 
 .featherlight-content {
   max-width: 1000px;
-}
-.featherlight-content a.comment-photo::before {
-  font-family: Dashicons;
-  content: "\f129";
-  padding-right: 5px;
-}
-.featherlight-content a.add-comment-link {
-  position: absolute;
-  right: 1rem;
-  bottom: 0;
-  font-size: .85rem;
-}
-.featherlight-content a.add-comment-link::before {
-  font-family: Dashicons;
-  content: "\f129";
-  padding-right: 5px;
 }
 
 #main-gallery-container, #display-gallery-container {
@@ -112,6 +98,7 @@ span.single-gallery-link {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 0 5px 0 5px;
 }
 
 .featherlight .mgi.featherlight-inner {
@@ -140,7 +127,7 @@ span.single-gallery-link {
 }
 
 p.cig-author {
-  font-size: .85rem;
+  font-size: .95rem;
   color: #000;
   margin-bottom: 0;
   z-index: 999999;
