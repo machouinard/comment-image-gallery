@@ -1,7 +1,20 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 (function ($) {
   $(function () {
+    var count = $('ul.related-list').data('count'); //console.log('count', count);
+
+    if (undefined !== _typeof(count) && 501 > window.screen.width && count > 4) {
+      var moreImages = $('ul.related-list').data('more'); //console.log('moreImages', moreImages);
+
+      var plus = document.getElementById('more-count-plus');
+      var more = document.getElementById('more-count');
+      plus.innerText = '+' + (parseInt(plus.innerText) + 1);
+      more.innerText = '' + (parseInt(more.innerText) + 1);
+    }
+
     $('a.main').featherlightGallery();
 
     $.featherlight.prototype.afterOpen = function () {

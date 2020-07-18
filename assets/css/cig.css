@@ -138,6 +138,14 @@ p.cig-author {
     min-height: inherit;
     float: left;
   }
+
+  #intro-gallery ul.related-list li:last-of-type {
+    display: list-item;
+  }
+
+  li.hide-last-odd-image {
+    display: none !important;
+  }
 }
 @media screen and (max-width: 825px) {
   .featherlight .mgi.featherlight-inner {

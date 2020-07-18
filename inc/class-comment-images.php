@@ -83,8 +83,8 @@ class Images {
 
 			$this->images = $images;
 
-			// Save image array as transient.  No expiration since this key is deleted when new comments are added.
-			set_transient( 'cig-' . $post->ID, $images );
+			// Save image array as transient.  12 hour expiration.
+			set_transient( 'cig-' . $post->ID, $images, 12 * 60 * 60 );
 		}
 
 		return empty( $this->images ) ? false : $this->images;

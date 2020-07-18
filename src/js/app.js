@@ -1,6 +1,19 @@
 ( function( $ ) {
 
 	$(function() {
+		const count = $('ul.related-list').data('count');
+		//console.log('count', count);
+		if ( undefined !== typeof count && 501 > window.screen.width && count > 4 ) {
+
+			const moreImages = $('ul.related-list').data('more');
+			//console.log('moreImages', moreImages);
+
+			let plus = document.getElementById('more-count-plus');
+			let more = document.getElementById('more-count');
+			plus.innerText = '+' + (parseInt( plus.innerText ) + 1);
+			more.innerText = '' + (parseInt( more.innerText ) + 1);
+		}
+
 		$( 'a.main' ).featherlightGallery();
 
 		$.featherlight.prototype.afterOpen = function() {
