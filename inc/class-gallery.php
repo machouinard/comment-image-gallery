@@ -18,7 +18,7 @@ class Gallery {
 	public function output( $count = 5 ) {
 
 		$this->count = (int)$count;
-
+		global $_wp_additional_image_sizes;
 		// Bail if no images found.
 		if ( ! $this->images ) {
 			return;

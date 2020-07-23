@@ -168,6 +168,10 @@ p.cig-author {
     top: 30px;
   }
 
+  .featherlight .mgi.featherlight-inner {
+    margin-top: 4rem;
+  }
+
   #display-gallery .gallery-item .thumb-holder img {
     opacity: 1;
   }
