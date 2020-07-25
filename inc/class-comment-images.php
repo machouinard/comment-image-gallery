@@ -6,9 +6,10 @@ class Images {
 
 	private $instance = false;
 	private $images = [];
+	private $options;
 
 	public function __construct() {
-		// Empty
+		$this->options = get_option( 'comment_img_settings' );
 	}
 
 	public function init() {
@@ -83,8 +84,11 @@ class Images {
 
 			$this->images = $images;
 
-			// Save image array as transient.  12 hour expiration.
-			set_transient( 'cig-' . $post->ID, $images, 12 * 60 * 60 );
+			$hours = $this->options['image_cache_time'];
+			$time = $hours * 60 * 60;
+
+			// Save image array as transient.  4 hour expiration.
+			set_transient( 'cig-' . $post->ID, $images, $hours );
 		}
 
 		return empty( $this->images ) ? false : $this->images;

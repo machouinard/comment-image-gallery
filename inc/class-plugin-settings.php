@@ -6,10 +6,8 @@ class PluginSettings {
 	private $options;
 
 	public function __construct() {
-		if ( ! $this->options = get_option( 'comment_img_settings' ) ) {
-			update_option( 'comment_img_settings', ['comment_num_images' => 5] );
-			$this->options = get_option( 'comment_img_settings' );
-		}
+		$defaults = [ 'comment_num_images' => 5, 'image_cache_time' => 12 ];
+		$this->options = get_option( 'comment_img_settings', $defaults );
 		$this->hooks();
 	}
 
@@ -22,7 +20,30 @@ class PluginSettings {
 	 */
 	public function hooks() {
 		add_action( 'admin_menu', [ $this, 'reg_options_page' ], PHP_INT_MAX );
+		add_action( 'update_option_comment_img_settings', [ $this, 'clear_transients'], 10, 3 );
 		add_action( 'admin_init', [ $this, 'reg_settings' ] );
+	}
+
+	/**
+	 * Clear CIG transients
+	 *
+	 * Hook to update_option_comment_img_settings so it only runs when Comment Image Settings page is saved.
+	 *
+	 * @param $old_value
+	 * @param $value
+	 * @param $option_name
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 *
+	 */
+	public function clear_transients( $old_value, $value, $option_name ) {
+		global $wpdb;
+
+		$sql = "DELETE FROM $wpdb->options WHERE option_name LIKE '%_cig-%'";
+
+		$result = $wpdb->query( $sql );
+
 	}
 
 	/**
@@ -55,6 +76,13 @@ class PluginSettings {
 			'comment_num_images',
 			'Number of initial images to Show',
 			[ $this, 'num_images_cb' ],
+			'comment_image_settings',
+			'comment_img_details_section'
+		);
+		add_settings_field(
+			'image_cache_time',
+			'How many hours to cache comment images.<br /><br />Cache is also cleared when new comments are added.',
+			[ $this, 'image_cache_cb' ],
 			'comment_image_settings',
 			'comment_img_details_section'
 		);
@@ -92,6 +120,12 @@ class PluginSettings {
 	public function num_images_cb() {
 		?>
 		<input type="number" name="comment_img_settings[comment_num_images]" value="<?php echo $this->options['comment_num_images']; ?>">
+		<?php
+	}
+
+	public function image_cache_cb() {
+		?>
+		<input type="number" name="comment_img_settings[image_cache_time]" value="<?php echo $this->options['image_cache_time']; ?>">
 		<?php
 	}
 
