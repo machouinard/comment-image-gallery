@@ -56,3 +56,8 @@ function cig_clear_transients( $id, $comment ) {
 	delete_transient( 'cig-' . $post_id );
 }
 
+register_activation_hook( __FILE__, 'cig_activation' );
+function cig_activation() {
+	$defaults = [ 'comment_num_images' => 5, 'image_cache_time' => 12 ];
+	update_option( 'comment_img_settings', $defaults );
+}
