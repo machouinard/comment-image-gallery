@@ -55,6 +55,16 @@ module.exports = function( grunt ) {
 						flatten: true,
 						src: ['src/js/featherlight/*.css'],
 						dest: 'assets/css/'
+					},
+					{
+						expand: true,
+						src: [
+							'comment-image-gallery.php',
+							'index.php',
+							'assets/**',
+							'inc/**'
+						],
+						dest: 'comment-image-gallery/'
 					}
 				]
 			}
