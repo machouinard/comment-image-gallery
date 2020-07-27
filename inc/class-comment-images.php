@@ -6,9 +6,10 @@ class Images {
 
 	private $instance = false;
 	private $images = [];
+	private $options;
 
 	public function __construct() {
-		// Empty
+		$this->options = get_option( 'comment_img_settings' );
 	}
 
 	public function init() {
@@ -36,6 +37,8 @@ class Images {
 		if ( ! $post ) {
 			return [];
 		}
+
+
 
 		// If transient not found, go dig up all the comment images.
 		if ( ! $this->images = get_transient( 'cig-' . $post->ID ) ) {
@@ -71,7 +74,7 @@ class Images {
 						$images[ $comment->comment_ID ]['rating']  = $rating;
 						foreach ( $attachments['images'] as $attach_id ) {
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['related'] = wp_get_attachment_image( $attach_id,
-								'thumbnail' );
+								'related' );
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['display'] = wp_get_attachment_image( $attach_id,
 								'cig-image' );
 						}
@@ -81,8 +84,11 @@ class Images {
 
 			$this->images = $images;
 
-			// Save image array as transient.  No expiration since this key is deleted when new comments are added.
-			set_transient( 'cig-' . $post->ID, $images );
+			$hours = $this->options['image_cache_time'];
+			$time = $hours * 60 * 60;
+
+			// Save image array as transient.  4 hour expiration.
+			set_transient( 'cig-' . $post->ID, $images, $hours );
 		}
 
 		return empty( $this->images ) ? false : $this->images;
@@ -97,9 +103,9 @@ class Images {
 	 * @since 1.0.0
 	 *
 	 */
-	public function intro_images( $num = 5 ) {
+	public function intro_images( $count ) {
 
-		return array_slice( $this->images, 0, (int) $num, true );
+		return array_slice( $this->images, 0, (int) $count, true );
 	}
 
 }
