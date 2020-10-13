@@ -6,10 +6,9 @@ class Images {
 
 	private $instance = false;
 	private $images = [];
-	private $options;
 
 	public function __construct() {
-		$this->options = get_option( 'comment_img_settings' );
+		// Empty
 	}
 
 	public function init() {
@@ -84,11 +83,8 @@ class Images {
 
 			$this->images = $images;
 
-			$hours = $this->options['image_cache_time'];
-			$time = $hours * 60 * 60;
-
-			// Save image array as transient.  4 hour expiration.
-			set_transient( 'cig-' . $post->ID, $images, $hours );
+			// Save image array as transient.  No expiration since this key is deleted when new comments are added.
+			set_transient( 'cig-' . $post->ID, $images );
 		}
 
 		return empty( $this->images ) ? false : $this->images;
