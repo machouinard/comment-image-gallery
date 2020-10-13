@@ -87,8 +87,8 @@ class Images {
 			$hours = $this->options['image_cache_time'];
 			$time = $hours * 60 * 60;
 
-			// Save image array as transient.  4 hour expiration.
-			set_transient( 'cig-' . $post->ID, $images, $hours );
+			// Save image array as transient that expires according to saved option
+			set_transient( 'cig-' . $post->ID, $images, $time );
 		}
 
 		return empty( $this->images ) ? false : $this->images;
