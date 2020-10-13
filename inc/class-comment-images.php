@@ -74,7 +74,7 @@ class Images {
 						$images[ $comment->comment_ID ]['rating']  = $rating;
 						foreach ( $attachments['images'] as $attach_id ) {
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['related'] = wp_get_attachment_image( $attach_id,
-								'related' );
+								'feast-square-1x1-360x360' );
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['display'] = wp_get_attachment_image( $attach_id,
 								'cig-image' );
 						}
