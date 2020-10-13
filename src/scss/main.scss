@@ -148,6 +148,55 @@ p.cig-author {
 	z-index: 999999;
 }
 
+/* Readers images and relates posts title and alignments by Dri --------------------------------------------- */
+h2.related-title {
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	font-size: 24px;
+	letter-spacing: 0;
+	margin-top: 5px;
+}
+
+h2.related-title:before, h2.related-title:after {
+	content: "";
+	flex: 1 1;
+	border-bottom: 1px solid #000;
+	margin: auto 10px;
+}
+
+/* Styling the title of posts */
+.related-list {
+	line-height: 1.4;
+}
+.related-list a {
+	color: #000;
+	font-weight: 400;
+	font-size: 14px;
+}
+.related-list a:hover {
+	color: #33658a;
+}
+
+
+.related-list li {
+	float: left;
+	list-style-type: none;
+	text-align: center;
+	width: 20%;
+	padding: 5px
+}
+
+.related-posts .related-list {
+	overflow: hidden;
+}
+
+.related-list img .related-list {
+	display: block;
+	margin: 0 auto;
+	padding: 5px;
+}
+
 @media screen and ( max-width: 500px ) {
 	.related-list li.intro-image-container {
 		min-height: inherit;

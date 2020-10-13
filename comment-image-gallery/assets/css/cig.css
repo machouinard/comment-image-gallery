@@ -30,10 +30,13 @@ a.add-photo-link::before {
 }
 
 p.below-gallery-links {
-  margin-left: 10px;
+  text-align: right;
+  margin-right: 10px;
+  margin-bottom: 0;
 }
 p.below-gallery-links span {
-  color: #f5897f;
+  color: #007cba;
+  padding: 0 5px;
 }
 p.below-gallery-links a:first-of-type {
   padding-right: .5rem;
@@ -45,7 +48,7 @@ span.single-gallery-link {
   top: 5px;
   left: 5px;
   margin-left: 15px;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 #display-gallery .gallery-item {
@@ -126,11 +129,6 @@ span.single-gallery-link {
   text-shadow: 0 0 5px #000;
 }
 
-.featherlight .featherlight-close-icon {
-  top: 1rem;
-  right: 1rem;
-}
-
 p.cig-author {
   font-size: .95rem;
   color: #000;
@@ -138,24 +136,76 @@ p.cig-author {
   z-index: 999999;
 }
 
+/* Readers images and relates posts title and alignments by Dri --------------------------------------------- */
+h2.related-title {
+	text-align: center;
+	display: flex;
+  flex-direction: row;
+  font-size: 24px;
+	letter-spacing: 0;
+	margin-top: 5px;
+}
+
+h2.related-title:before, h2.related-title:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid #000;
+    margin: auto 10px;
+}
+
+/* Styling the title of posts */
+.related-list {
+	line-height: 1.4;
+}
+.related-list a {
+	color: #000; 
+	font-weight: 400;
+	font-size: 14px; 
+}
+.related-list a:hover {
+color: #33658a;
+} 
+
+
+.related-list li {
+	float: left;
+	list-style-type: none;
+	text-align: center;
+	width: 20%;
+	padding: 5px
+}
+
+.related-posts .related-list {
+    overflow: hidden;
+}
+
+.related-list img .related-list {
+  display: block;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+@media only screen and (max-width: 500px) {
+.related-list li{
+	width: 50%;
+	min-height: 270px;
+  line-height: 20px;
+	}
+	
+ul.related-list li:last-of-type {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .related-list li.intro-image-container {
     min-height: inherit;
     float: left;
   }
-
-  #intro-gallery ul.related-list li:last-of-type {
-    display: list-item;
-  }
-
-  li.hide-last-odd-image {
-    display: none !important;
-  }
 }
 @media screen and (max-width: 825px) {
   .featherlight .mgi.featherlight-inner {
     grid-template-columns: 1fr;
-    margin-top: 4rem;
   }
 
   p.cig-author {
@@ -166,10 +216,6 @@ p.cig-author {
   .featherlight-previous,
   .featherlight-next {
     top: 30px;
-  }
-
-  .featherlight .mgi.featherlight-inner {
-    margin-top: 4rem;
   }
 
   #display-gallery .gallery-item .thumb-holder img {
