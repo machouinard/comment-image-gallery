@@ -6,9 +6,10 @@ class Images {
 
 	private $instance = false;
 	private $images = [];
+	private $options;
 
 	public function __construct() {
-		// Empty
+		$this->options = get_option( 'comment_img_settings' );
 	}
 
 	public function init() {
@@ -40,7 +41,7 @@ class Images {
 
 
 		// If transient not found, go dig up all the comment images.
-		if ( ! $this->images = get_transient( 'cig-' . $post->ID ) ) {
+		if ( ( defined( 'SKIP_COMMENT_CACHE' ) && SKIP_COMMENT_CACHE ) || ! $this->images = get_transient( 'cig-' . $post->ID ) ) {
 
 			$comments = get_comments( [ 'post_id' => $post->ID ] );
 			$images   = [];
@@ -73,7 +74,7 @@ class Images {
 						$images[ $comment->comment_ID ]['rating']  = $rating;
 						foreach ( $attachments['images'] as $attach_id ) {
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['related'] = wp_get_attachment_image( $attach_id,
-								'related' );
+								'feast-square-1x1-360x360' );
 							$images[ $comment->comment_ID ]['src'][ $attach_id ]['display'] = wp_get_attachment_image( $attach_id,
 								'cig-image' );
 						}
@@ -83,8 +84,11 @@ class Images {
 
 			$this->images = $images;
 
-			// Save image array as transient.  No expiration since this key is deleted when new comments are added.
-			set_transient( 'cig-' . $post->ID, $images );
+			$hours = $this->options['image_cache_time'];
+			$time = $hours * 60 * 60;
+
+			// Save image array as transient that expires according to saved option
+			set_transient( 'cig-' . $post->ID, $images, $time );
 		}
 
 		return empty( $this->images ) ? false : $this->images;

@@ -5,6 +5,7 @@
   "author": "Adriana",
   "scripts": {
     "start": "grunt default",
+    "build": "grunt prod",
     "readme": "grunt readme",
     "i18n": "grunt i18n"
   },

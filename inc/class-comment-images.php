@@ -41,7 +41,7 @@ class Images {
 
 
 		// If transient not found, go dig up all the comment images.
-		if ( ! $this->images = get_transient( 'cig-' . $post->ID ) ) {
+		if ( ( defined( 'SKIP_COMMENT_CACHE' ) && SKIP_COMMENT_CACHE ) || ! $this->images = get_transient( 'cig-' . $post->ID ) ) {
 
 			$comments = get_comments( [ 'post_id' => $post->ID ] );
 			$images   = [];

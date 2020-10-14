@@ -53,6 +53,8 @@
 			let thumb = document.getElementById( id );
 			$( thumb ).click();
 		} );
-	})
+	});
+
+	$('i.fas.fa-camera').html( '<span style=\'font-size: 14px;padding-left: 5px;font-family: Arial Hebrew, Arial, sans-serif;\'>ADD PHOTO</span>' );
 
 } )( jQuery );
