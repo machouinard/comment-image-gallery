@@ -18,31 +18,37 @@ class Gallery {
 	public function output( $count = 5 ) {
 
 		$this->count = (int)$count;
-
 		// Bail if no images found.
 		if ( ! $this->images ) {
 			return;
 		}
 		// Get first [$this->count] images for immediate display.
 		$intro_images = $this->choco->intro_images( $this->count);
-
+		$more = count( $this->images ) - $this->count;
 		?>
 		<!--	Start Intro Gallery Div-->
 		<div id="intro-gallery" class="related-posts">
-			<h2 class="related-title">Readers' Recipe Photos</h2>
-			<ul class="related-list">
+			<h3 class="related-title">Readers' Recipe Photos</h3>
+			<ul class="related-list" data-count="<?php echo count( $this->images ); ?>" data-more="<?php echo $more; ?>">
 				<?php
-				$more = count( $this->images ) - $this->count;
+
 				$x    = 1;
 				foreach ( $intro_images as $id => $image ) {
 					$span = '';
 					if ( 1 === $x && $this->count < count( $this->images ) ) {
-						$span = '<span>+' . $more . '</span>';
+						$span = '<span id="more-count-plus">+' . $more . '</span>';
 					}
-					$x ++;
+
+					$rem = $this->count % 2;
+
 					foreach ( $image['src'] as $id => $img ) {
+						$class = '';
+						if ( $x == $this->count && 0 != $this->count % 2 && count( $this->images ) >= $this->count ) {
+							$class = 'hide-last-odd-image';
+						}
+
 						$thumb = <<<THMB
-<li class="intro-image-container">
+<li class="intro-image-container {$class}">
 <a data-link="gi-{$id}" class="intro" href="#">
 	{$img['related']}
 </a>
@@ -52,7 +58,7 @@ class Gallery {
 THMB;
 
 						echo $thumb;
-
+						$x ++;
 					}
 
 				}
@@ -66,8 +72,8 @@ THMB;
 			<p class="below-gallery-links">
 				<a class="add-photo-link" href="#comments" alt="add photo link">Add your photo</a>
 			<?php if ( $this->count < count( $this->images ) ): ?>
-				<span class="link-sep">|&nbsp; </span>
-				<a class="link" href="#" data-featherlight="#display-gallery">See <?php echo (int) count($this->images) - $this->count; ?> more</a>
+				<span class="link-sep">|&nbsp;</span>
+				<a class="link" href="#" data-featherlight="#display-gallery">See <span id="more-count"><?php echo (int) count($this->images) - $this->count; ?></span> more</a>
 			<?php endif; ?>
 			</p>
 			<!--End Gallery Link-->
@@ -159,7 +165,7 @@ ITEM;
 			return;
 		}
 
-		$ver     = filemtime( CIG_PATH . 'assets/js/main.js' );
+		$ver     = filemtime( CIG_PATH . 'assets/js/main.min.js' );
 		$css_ver = filemtime( CIG_PATH . 'assets/css/cig.css' );
 		wp_enqueue_script( 'cig-fljs',
 			CIG_URL . 'assets/js/featherlight.min.js',
@@ -172,7 +178,7 @@ ITEM;
 			'1.7.14',
 			true );
 		wp_enqueue_script( 'cig-js',
-			CIG_URL . 'assets/js/main.js',
+			CIG_URL . 'assets/js/main.min.js',
 			[ 'jquery', 'cig-fljs' ],
 			$ver,
 			true );

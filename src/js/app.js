@@ -5,7 +5,7 @@
 		//console.log('count', count);
 		if ( undefined !== typeof count && 501 > window.screen.width && count > 4 ) {
 
-			const moreImages = $('ul.related-list').data('more');
+			//const moreImages = $('ul.related-list').data('more');
 			//console.log('moreImages', moreImages);
 
 			let plus = document.getElementById('more-count-plus');
@@ -17,7 +17,7 @@
 		$( 'a.main' ).featherlightGallery();
 
 		$.featherlight.prototype.afterOpen = function() {
-			const title = $('<h3 class="related-title">Readers\' Recipe Photos</h3>');
+			const title = $('<h2 class="related-title">Readers\' Recipe Photos</h2>');
 			const subtitle = $('<p class="fl-subtitle">Click photos to enlarge and read reviews</p>');
 			const commentLink = $('<a class="comment-photo" href="#comments">Add a comment and photo</a>');
 			$('.featherlight .featherlight-content' ).prepend(subtitle);
@@ -53,6 +53,8 @@
 			let thumb = document.getElementById( id );
 			$( thumb ).click();
 		} );
-	})
+	});
+
+	$('i.fas.fa-camera').html( '<span style=\'font-size: 14px;padding-left: 5px;font-family: Arial Hebrew, Arial, sans-serif;\'>ADD PHOTO</span>' );
 
 } )( jQuery );
