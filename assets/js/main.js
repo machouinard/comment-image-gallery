@@ -7,8 +7,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     var count = $('ul.related-list').data('count'); //console.log('count', count);
 
     if (undefined !== _typeof(count) && 501 > window.screen.width && count > 4) {
-      var moreImages = $('ul.related-list').data('more'); //console.log('moreImages', moreImages);
-
+      //const moreImages = $('ul.related-list').data('more');
+      //console.log('moreImages', moreImages);
       var plus = document.getElementById('more-count-plus');
       var more = document.getElementById('more-count');
       plus.innerText = '+' + (parseInt(plus.innerText) + 1);
@@ -18,7 +18,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     $('a.main').featherlightGallery();
 
     $.featherlight.prototype.afterOpen = function () {
-      var title = $('<h3 class="related-title">Readers\' Recipe Photos</h3>');
+      var title = $('<h2 class="related-title">Readers\' Recipe Photos</h2>');
       var subtitle = $('<p class="fl-subtitle">Click photos to enlarge and read reviews</p>');
       var commentLink = $('<a class="comment-photo" href="#comments">Add a comment and photo</a>');
       $('.featherlight .featherlight-content').prepend(subtitle);
