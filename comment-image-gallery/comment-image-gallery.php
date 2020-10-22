@@ -76,8 +76,6 @@ function cig_prevent_update( $r, $url ) {
 		return $r; // Request not for plugin updates, keep things moving along.
 	}
 
-	$a = plugin_basename( CIG_PATH . 'comment-image-gallery.php' );
-
 	// Decode args into array of plugins
 	$plugins = json_decode( $r['body']['plugins'], true );
 	// Remove our plugin from array

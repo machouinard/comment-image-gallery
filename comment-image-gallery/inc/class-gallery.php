@@ -161,7 +161,7 @@ ITEM;
 	public static function enqueue() {
 
 		// Only enqueue on single posts
-		if ( ! is_singular( 'post' ) ) {
+		if ( ! is_singular( ['post', 'page'] ) ) {
 			return;
 		}
 
